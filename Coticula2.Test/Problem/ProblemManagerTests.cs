@@ -27,10 +27,32 @@ namespace Coticula2.Test.Problem
         }
 
         [Test]
+        public void TestCreateProblemWithId()
+        {
+            IProblem problem = ProblemManager.CreateProblem(@"..\..\..\TestData\Problems", 1);
+            Assert.NotNull(problem);
+            Assert.AreEqual(4, problem.Tests.Length);
+            foreach (var test in problem.Tests)
+            {
+                Assert.IsNotNullOrEmpty(test.Input);
+                Assert.IsNotNullOrEmpty(test.Output);
+            }
+            Assert.AreEqual("1 1", problem.Tests[0].Input.Trim());
+            Assert.AreEqual("1 1", problem.Tests[0].Output.Trim());
+        }
+
+        [Test]
         [ExpectedException(typeof(InvalidDataException))]
         public void TestCreateProblemFromIncorrectFileStructure()
         {
             IProblem problem = ProblemManager.CreateProblem(@"..\..\..\TestData\Problems\ProblemBadTest");
+        }
+
+        [Test]
+        [ExpectedException(typeof(InvalidDataException))]
+        public void TestCreateProblemWithIncorrectId()
+        {
+            IProblem problem = ProblemManager.CreateProblem(@"..\..\..\TestData\Problems", 6);
         }
     }
 }

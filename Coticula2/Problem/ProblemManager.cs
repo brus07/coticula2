@@ -12,6 +12,8 @@ namespace Coticula2.Problem
         private const string InputFile = "in.txt";
         private const string OutputFile = "out.txt";
 
+        private const string ProblemFolderPrefix = "Problem";
+
         public static IProblem CreateProblem(string path)
         {
             string[] testDirectories = Directory.GetDirectories(path, TestFolderPrefix+"*");
@@ -29,12 +31,22 @@ namespace Coticula2.Problem
                 }
                 else
                 {
-                    throw new InvalidDataException(string.Format("Thera now input or output file in \"{0}\" folder", testDirectories));
+                    throw new InvalidDataException(string.Format("There aren't input or output file in \"{0}\" folder", testDirectories));
                 }
             }
             IProblem problem = new Problem();
             problem.Tests = testsList.ToArray();
             return problem;
+        }
+
+        public static IProblem CreateProblem(string path, int problemId)
+        {
+            string expectedProblemFolderPath = Path.Combine(path, ProblemFolderPrefix + problemId);
+            if (!Directory.Exists(expectedProblemFolderPath))
+            {
+                throw new InvalidDataException(string.Format("Can't find {0} problem in \"{1}\" folder", problemId, path));
+            }
+            return CreateProblem(expectedProblemFolderPath);
         }
     }
 }
