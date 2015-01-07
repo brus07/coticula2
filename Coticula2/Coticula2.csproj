@@ -45,6 +45,11 @@
     <Compile Include="Compilers\ICompiler.cs" />
     <Compile Include="Compilers\CompilerManager.cs" />
     <Compile Include="Compilers\DefaultCompiler.cs" />
+    <Compile Include="Problem\IProblem.cs" />
+    <Compile Include="Problem\ITest.cs" />
+    <Compile Include="Problem\Problem.cs" />
+    <Compile Include="Problem\ProblemManager.cs" />
+    <Compile Include="Problem\Test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

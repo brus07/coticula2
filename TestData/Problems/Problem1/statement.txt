@@ -1,0 +1,13 @@
+Swap problem
+
+Input
+A and B
+
+Output
+B and A
+
+Sample
+Input
+4 7
+Output
+7 4

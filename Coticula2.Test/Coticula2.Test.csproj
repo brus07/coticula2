@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Compilers\DefaultCompilerTests.cs" />
     <Compile Include="DefaultTests.cs" />
+    <Compile Include="Problem\ProblemManagerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
