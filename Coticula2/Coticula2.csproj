@@ -51,6 +51,14 @@
     <Compile Include="Problem\ProblemManager.cs" />
     <Compile Include="Problem\Test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tester\ACMTester.cs" />
+    <Compile Include="Tester\ISolution.cs" />
+    <Compile Include="Tester\ITester.cs" />
+    <Compile Include="Tester\ITestingResult.cs" />
+    <Compile Include="Tester\SimpleSolution.cs" />
+    <Compile Include="Tester\TesterManager.cs" />
+    <Compile Include="Tester\TestingResult.cs" />
+    <Compile Include="Tester\Verdict.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
