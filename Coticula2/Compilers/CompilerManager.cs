@@ -13,6 +13,12 @@ namespace Coticula2.Compilers
         public CompilerManager(string compilersPath)
         {
             this.compilersPath = compilersPath;
+
+            const string internalFpcFolderPath = @"fpc_2.6.4\bin\i386-win32";
+            if (Directory.Exists(Path.Combine(compilersPath, internalFpcFolderPath)))
+            {
+                this.compilersPath = Path.Combine(compilersPath, internalFpcFolderPath);
+            }
         }
         public ICompiler CreateCompiler(string language)
         {
