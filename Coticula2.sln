@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coticula2", "Coticula2\Coti
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coticula2.Test", "Coticula2.Test\Coticula2.Test.csproj", "{C7924FD6-56C3-464C-A398-4C3FBF75D4BD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coticula2Face", "Coticula2Face\Coticula2Face.csproj", "{6483CA00-007F-43DE-9C46-168A34BC8143}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coticula2Face.Tests", "Coticula2Face.Tests\Coticula2Face.Tests.csproj", "{84F0ADCA-D07C-43F0-B2A7-1D019521E881}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{C7924FD6-56C3-464C-A398-4C3FBF75D4BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C7924FD6-56C3-464C-A398-4C3FBF75D4BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C7924FD6-56C3-464C-A398-4C3FBF75D4BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6483CA00-007F-43DE-9C46-168A34BC8143}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6483CA00-007F-43DE-9C46-168A34BC8143}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6483CA00-007F-43DE-9C46-168A34BC8143}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6483CA00-007F-43DE-9C46-168A34BC8143}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84F0ADCA-D07C-43F0-B2A7-1D019521E881}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84F0ADCA-D07C-43F0-B2A7-1D019521E881}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84F0ADCA-D07C-43F0-B2A7-1D019521E881}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84F0ADCA-D07C-43F0-B2A7-1D019521E881}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
