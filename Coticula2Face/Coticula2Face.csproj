@@ -168,8 +168,19 @@
     <Compile Include="Migrations\201503090940357_InitialCreate.Designer.cs">
       <DependentUpon>201503090940357_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201503091022519_AddLanguage.cs" />
+    <Compile Include="Migrations\201503091022519_AddLanguage.Designer.cs">
+      <DependentUpon>201503091022519_AddLanguage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201503091615078_AddVerdictAndProblem.cs" />
+    <Compile Include="Migrations\201503091615078_AddVerdictAndProblem.Designer.cs">
+      <DependentUpon>201503091615078_AddVerdictAndProblem.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Coticula\Language.cs" />
+    <Compile Include="Models\Coticula\Problem.cs" />
+    <Compile Include="Models\Coticula\Verdict.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -243,8 +254,11 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201503090940357_InitialCreate.resx">
-      <DependentUpon>201503090940357_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201503091022519_AddLanguage.resx">
+      <DependentUpon>201503091022519_AddLanguage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503091615078_AddVerdictAndProblem.resx">
+      <DependentUpon>201503091615078_AddVerdictAndProblem.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

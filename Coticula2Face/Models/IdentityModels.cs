@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Coticula2Face.Models.Coticula;
 
 namespace Coticula2Face.Models
 {
@@ -29,5 +30,11 @@ namespace Coticula2Face.Models
         {
             return new ApplicationDbContext();
         }
+
+        public DbSet<Language> Languages { get; set; }
+
+        public DbSet<Verdict> Verdicts { get; set; }
+
+        public DbSet<Problem> Problems { get; set; }
     }
 }
