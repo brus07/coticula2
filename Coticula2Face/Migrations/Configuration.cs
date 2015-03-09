@@ -5,14 +5,15 @@ namespace Coticula2Face.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<Coticula2Face.Models.Context>
+    internal sealed class Configuration : DbMigrationsConfiguration<Coticula2Face.Models.ApplicationDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
+            ContextKey = "Coticula2Face.Models.ApplicationDbContext";
         }
 
-        protected override void Seed(Coticula2Face.Models.Context context)
+        protected override void Seed(Coticula2Face.Models.ApplicationDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 
