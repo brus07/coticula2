@@ -161,6 +161,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ProblemController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -242,6 +243,11 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Problem\Create.cshtml" />
+    <Content Include="Views\Problem\Delete.cshtml" />
+    <Content Include="Views\Problem\Details.cshtml" />
+    <Content Include="Views\Problem\Edit.cshtml" />
+    <Content Include="Views\Problem\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -254,6 +260,9 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Migrations\201503090940357_InitialCreate.resx">
+      <DependentUpon>201503090940357_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201503091022519_AddLanguage.resx">
       <DependentUpon>201503091022519_AddLanguage.cs</DependentUpon>
     </EmbeddedResource>

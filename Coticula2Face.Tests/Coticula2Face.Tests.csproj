@@ -33,7 +33,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Moq">
+      <HintPath>..\packages\Moq.4.2.1502.0911\lib\net40\Moq.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
     </Reference>
@@ -84,10 +94,23 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\ProblemControllerTest.cs" />
+    <Compile Include="Helpers\DatabaseTestClass.cs" />
+    <Compile Include="Models\Coticula\LanguageTest.cs" />
+    <Compile Include="Models\Coticula\ProblemTest.cs" />
+    <Compile Include="Models\Coticula\VerdictTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\Coticula2Face\App_Data\aspnet-Coticula2Face-20150204011202.mdf">
+      <Link>App_Data\aspnet-Coticula2Face-20150204011202.mdf</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Coticula2Face\App_Data\aspnet-Coticula2Face-20150204011202_log.ldf">
+      <Link>App_Data\aspnet-Coticula2Face-20150204011202_log.ldf</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="App.config" />
   </ItemGroup>
   <ItemGroup>
