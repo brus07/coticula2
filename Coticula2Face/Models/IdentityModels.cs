@@ -36,5 +36,7 @@ namespace Coticula2Face.Models
         public DbSet<Verdict> Verdicts { get; set; }
 
         public DbSet<Problem> Problems { get; set; }
+
+        public DbSet<Submit> Submits { get; set; }
     }
 }

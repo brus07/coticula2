@@ -20,7 +20,7 @@ namespace Coticula2Face.Migrations
 
             context.Languages.AddOrUpdate(
                 p => p.ShortName,
-                new Language { ShortName = "FPC", Name = "Free Pascal"}
+                new Language { Id=1, ShortName = "FPC", Name = "Free Pascal"}
             );
 
             context.Verdicts.AddOrUpdate(
@@ -52,6 +52,25 @@ Output
 7 4"
                 }
             );
+
+            context.Submits.AddOrUpdate(
+                new Submit
+                {
+                    Time = DateTime.Now,
+                    LanguageID = 1,
+                    Solution = "begin end.",
+                    VerdictID = 1,
+                    ProblemID = 1
+                },
+                new Submit
+                {
+                    Time = DateTime.Now,
+                    LanguageID = 1,
+                    Solution = "begin end.",
+                    VerdictID = 2,
+                    ProblemID = 1
+                }
+             );
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data. E.g.

@@ -177,10 +177,15 @@
     <Compile Include="Migrations\201503091615078_AddVerdictAndProblem.Designer.cs">
       <DependentUpon>201503091615078_AddVerdictAndProblem.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201503172036082_AddedSubmit.cs" />
+    <Compile Include="Migrations\201503172036082_AddedSubmit.Designer.cs">
+      <DependentUpon>201503172036082_AddedSubmit.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Coticula\Language.cs" />
     <Compile Include="Models\Coticula\Problem.cs" />
+    <Compile Include="Models\Coticula\Submit.cs" />
     <Compile Include="Models\Coticula\Verdict.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -268,6 +273,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201503091615078_AddVerdictAndProblem.resx">
       <DependentUpon>201503091615078_AddVerdictAndProblem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503172036082_AddedSubmit.resx">
+      <DependentUpon>201503172036082_AddedSubmit.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
