@@ -162,6 +162,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProblemController.cs" />
+    <Compile Include="Controllers\SubmitsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -253,6 +254,11 @@
     <Content Include="Views\Problem\Details.cshtml" />
     <Content Include="Views\Problem\Edit.cshtml" />
     <Content Include="Views\Problem\Index.cshtml" />
+    <Content Include="Views\Submits\Create.cshtml" />
+    <Content Include="Views\Submits\Delete.cshtml" />
+    <Content Include="Views\Submits\Details.cshtml" />
+    <Content Include="Views\Submits\Edit.cshtml" />
+    <Content Include="Views\Submits\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
