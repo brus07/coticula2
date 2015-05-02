@@ -9,6 +9,9 @@ namespace Coticula2Face
     {
         public static void Register(HttpConfiguration config)
         {
+            // Remove the XML formatter
+            config.Formatters.Remove(config.Formatters.XmlFormatter);
+
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
