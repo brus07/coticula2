@@ -32,7 +32,7 @@ namespace Coticula2Face.Controllers.Api
         }
 
         // GET: api/Submits/5
-        [ResponseType(typeof(Submit))]
+        [ResponseType(typeof(Coticula2.Connector.Submit))]
         public IHttpActionResult GetSubmit(int id)
         {
             Submit submit = db.Submits.Find(id);
@@ -41,25 +41,28 @@ namespace Coticula2Face.Controllers.Api
                 return NotFound();
             }
 
-            return Ok(submit);
+            Coticula2.Connector.Submit returnSubmit = new Coticula2.Connector.Submit();
+            returnSubmit.Id = submit.Id;
+            returnSubmit.LanguageID = submit.LanguageID;
+            returnSubmit.ProblemID = submit.ProblemID;
+            returnSubmit.Solution = submit.Solution;
+            returnSubmit.Time = submit.Time;
+            returnSubmit.VerdictID = submit.VerdictID;
+            return Ok(returnSubmit);
         }
 
         // PUT: api/Submits/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutSubmit(int id, [Bind(Exclude = "Time")]Submit submit)
+        public IHttpActionResult PutSubmit(int id, Coticula2.Connector.ReturnSubmit returnSubmit)
         {
-            var submitFromDb = db.Submits.First(r => r.Id == id);
-            //TODO: need make it smarter
-            submit.Time = submitFromDb.Time;
-            submit.ProblemID = submitFromDb.ProblemID;
-            submitFromDb.LanguageID = submitFromDb.LanguageID;
-            submitFromDb.Solution = submitFromDb.Solution;
+            var submit = db.Submits.First(r => r.Id == id);
+            submit.VerdictID = returnSubmit.VerdictID;
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != submit.Id)
+            if (id != returnSubmit.Id)
             {
                 return BadRequest();
             }

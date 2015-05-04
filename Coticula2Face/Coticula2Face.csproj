@@ -298,6 +298,12 @@
       <DependentUpon>201503172036082_AddedSubmit.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Coticula2.Connector\Coticula2.Connector.csproj">
+      <Project>{57c886f5-ce11-4263-ad4a-22200406f4e5}</Project>
+      <Name>Coticula2.Connector</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
