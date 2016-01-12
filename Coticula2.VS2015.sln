@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coticula2", "Coticula2\Coticula2.csproj", "{F206D895-EBD8-4136-B454-5D2E6F142830}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coticula2.Test", "Coticula2.Test\Coticula2.Test.csproj", "{C7924FD6-56C3-464C-A398-4C3FBF75D4BD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coticula2.Executer", "Coticula2.Executer\Coticula2.Executer.csproj", "{69406123-FF41-45A5-9193-114A14CC2A4C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{C7924FD6-56C3-464C-A398-4C3FBF75D4BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C7924FD6-56C3-464C-A398-4C3FBF75D4BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C7924FD6-56C3-464C-A398-4C3FBF75D4BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69406123-FF41-45A5-9193-114A14CC2A4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69406123-FF41-45A5-9193-114A14CC2A4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69406123-FF41-45A5-9193-114A14CC2A4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69406123-FF41-45A5-9193-114A14CC2A4C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
