@@ -21,14 +21,18 @@ namespace Coticula2
             TestingResult testingResult = new TestingResult();
 
             var workingTestDirectory = CreateTemporaryDirectory();
-            //HACK: not only for CSharp 1
+            //HACK: only for CSharp (1)
             var sourceFile = Path.Combine(workingTestDirectory, "source.cs");
             File.WriteAllText(sourceFile, solution);
 
             var startInfo = Creator.CreateRunnerStartInfo();
             startInfo.ExecutableFile = Compiler;
-            //HACK: not only for CSharp 2
-            startInfo.Arguments = string.Format(" /nologo /out:{0} {1}", Path.Combine(workingTestDirectory, "source.exe"), Path.Combine(workingTestDirectory, "source.cs"));
+            //HACK: only for CSharp (2)
+            if (IsUnix)
+                startInfo.Arguments = string.Format(" -out:{0} {1}", Path.Combine(workingTestDirectory, "source.exe"), Path.Combine(workingTestDirectory, "source.cs"));
+            else
+                startInfo.Arguments = string.Format(" /nologo /out:{0} {1}", Path.Combine(workingTestDirectory, "source.exe"), Path.Combine(workingTestDirectory, "source.cs"));
+            startInfo.WorkingTimeLimit = 10000;
             var executedResult = runner.Run(startInfo);
             testingResult.CompilationOutput = executedResult.OutputString;
             if (executedResult.ExitCode != 0)
