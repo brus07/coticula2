@@ -34,7 +34,7 @@ namespace Coticula2
                 startInfo.Arguments = string.Format(" /nologo /out:{0} {1}", Path.Combine(workingTestDirectory, "source.exe"), Path.Combine(workingTestDirectory, "source.cs"));
             startInfo.WorkingTimeLimit = 10000;
             var executedResult = runner.Run(startInfo);
-            testingResult.CompilationOutput = executedResult.OutputString;
+            testingResult.CompilationOutput = string.Concat(executedResult.ErrorOutputString, executedResult.OutputString);
             if (executedResult.ExitCode != 0)
             {
                 testingResult.CompilationVerdict = Verdict.CopilationError;
