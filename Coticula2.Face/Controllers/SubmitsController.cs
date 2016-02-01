@@ -19,7 +19,7 @@ namespace Coticula2.Face.Controllers
         // GET: Submits
         public IActionResult Index()
         {
-            var applicationDbContext = _context.Submits.Include(s => s.Problem);
+            var applicationDbContext = _context.Submits.Include(s => s.Problem).Include(s => s.ProgrammingLanguage);
             return View(applicationDbContext.ToList());
         }
 
@@ -31,7 +31,7 @@ namespace Coticula2.Face.Controllers
                 return HttpNotFound();
             }
 
-            Submit submit = _context.Submits.Single(m => m.SubmitID == id);
+            Submit submit = _context.Submits.Include(s => s.ProgrammingLanguage).Single(m => m.SubmitID == id);
             if (submit == null)
             {
                 return HttpNotFound();
@@ -49,6 +49,7 @@ namespace Coticula2.Face.Controllers
             int problemId = Int32.Parse(v.ToString());
             //ViewData["ProblemID"] = new SelectList(_context.Problems, "ProblemID", "Problem");
             ViewData["ProblemID"] = problemId;
+            ViewData["ProgrammingLanguages"] = new SelectList(_context.ProgrammingLanguages, "ProgrammingLanguageID", "Name");
             return View();
         }
 
@@ -57,7 +58,6 @@ namespace Coticula2.Face.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Submit submit)
         {
-            var v = this.RouteData.Values["problemId"];
             if (ModelState.IsValid)
             {
                 submit.SubmitTime = DateTime.Now;
@@ -83,6 +83,7 @@ namespace Coticula2.Face.Controllers
                 return HttpNotFound();
             }
             ViewData["ProblemID"] = new SelectList(_context.Problems, "ProblemID", "Problem", submit.ProblemID);
+            ViewData["ProgrammingLanguages"] = new SelectList(_context.ProgrammingLanguages, "ProgrammingLanguageID", "Name");
             return View(submit);
         }
 
