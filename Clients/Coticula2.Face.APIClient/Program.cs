@@ -34,9 +34,8 @@ namespace Coticula2.Face.APIClient
                     IRestResponse<Submit> submitResponse = client.Execute<Submit>(request);
                     Submit submit = submitResponse.Data;
                     Console.WriteLine("{0}:", untestedIds[0]);
-                    Console.WriteLine("{0}", submit.SubmitTime);
-                    Console.WriteLine("{0}", submit.ProblemID);
-                    Console.WriteLine("{0}", submit.Solution);
+                    Console.WriteLine("Submit time: {0}", submit.SubmitTime);
+                    Console.WriteLine("Problem ID: {0}", submit.ProblemID);
 
                     //test
                     IRunner runner = Protex.Windows.Creator.CreateRunner();
