@@ -26,6 +26,26 @@ namespace Coticula2.Face.Migrations
                 context.SaveChanges();
             }
 
+
+            if (!context.ProgrammingLanguages.Any())
+            {
+                context.ProgrammingLanguages.AddRange(
+                    new ProgrammingLanguage()
+                    {
+                        Name = "C#",
+                    },
+                    new ProgrammingLanguage()
+                    {
+                        Name = "FPC",
+                    },
+                    new ProgrammingLanguage()
+                    {
+                        Name = "G++",
+                    }
+                );
+                context.SaveChanges();
+            }
+
             if (!context.Submits.Any())
             {
                 context.Submits.AddRange(
@@ -38,7 +58,8 @@ begin
     write(b, ' ', a);
 end.",
                         SubmitTime = DateTime.Now,
-                        ProblemID = 1
+                        ProblemID = 1,
+                        ProgrammingLanguageID = 2
                     },
                     new Submit()
                     {
@@ -49,7 +70,25 @@ begin
     write(a, ' ', b);
 end.",
                         SubmitTime = DateTime.Now,
-                        ProblemID = 1
+                        ProblemID = 1,
+                        ProgrammingLanguageID = 2
+                    },
+                    new Submit()
+                    {
+                        Solution = @"
+using System;
+
+public class Swap
+{
+    private static void Main()
+    {
+        string[] tokens = Console.ReadLine().Split();
+        Console.WriteLine(""{ 0 } { 1 }"", int.Parse(tokens[1]), int.Parse(tokens[0]));
+                    }
+}",
+                        SubmitTime = DateTime.Now,
+                        ProblemID = 1,
+                        ProgrammingLanguageID = 1
                     }
                 );
                 context.SaveChanges();

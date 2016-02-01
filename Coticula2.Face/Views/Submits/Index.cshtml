@@ -18,6 +18,9 @@
             @Html.DisplayNameFor(model => model.Problem)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.ProgrammingLanguage)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Status)
         </th>
         <th></th>
@@ -30,6 +33,9 @@
         </td>
         <td>
             <a asp-controller="Problems" asp-action="Details" asp-route-id="@item.ProblemID">@item.Problem.Title</a>
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProgrammingLanguage.Name)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Status)
