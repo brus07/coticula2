@@ -41,6 +41,20 @@ namespace Coticula2.Face.APIClient
                     IRunner runner = Protex.Windows.Creator.CreateRunner();
                     Tester tester = new Tester(runner);
                     Language language = Language.CSharp;
+                    switch (submit.ProgrammingLanguageID)
+                    {
+                        case 1:
+                            language = Language.CSharp;
+                            break;
+                        case 2:
+                            language = Language.Fpc;
+                            break;
+                        case 3:
+                            language = Language.GPlusPlus;
+                            break;
+                        default:
+                            break;
+                    }
                     string solution = submit.Solution;
                     var testingResult = tester.Test(submit.ProblemID, solution, language);
                     if (testingResult.CompilationVerdict == Verdict.CopilationError)
