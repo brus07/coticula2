@@ -64,8 +64,8 @@ namespace Coticula2.Face.Controllers
             {
                 return HttpBadRequest();
             }
-
-            _context.Entry(submit).State = EntityState.Modified;
+            _context.Submits.Single(m => m.SubmitID == id).Status = submit.Status;
+            //_context.Entry(submit).State = EntityState.Modified;
 
             try
             {

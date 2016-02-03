@@ -3,5 +3,7 @@
     public enum Language
     {
         CSharp,
+        Fpc,
+        GPlusPlus
     }
 }

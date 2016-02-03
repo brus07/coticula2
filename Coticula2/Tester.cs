@@ -29,19 +29,42 @@ namespace Coticula2
             startInfo.ExecutableFile = Compiler;
             //HACK: only for CSharp (2)
             if (IsUnix)
+            {
                 startInfo.Arguments = string.Format(" -out:{0} {1}", Path.Combine(workingTestDirectory, "source.exe"), Path.Combine(workingTestDirectory, "source.cs"));
+                switch (language)
+                {
+                    case Language.CSharp:
+                        break;
+                    case Language.Fpc:
+                        startInfo.ExecutableFile = "fpc";
+                        //fpc -O2 -Xs -Sgic -viwn -Cs67107839 -Mdelphi -XS source.pas -osource.exe
+                        startInfo.Arguments = string.Format(" -O2 -Xs -Sgic -viwn -Cs67107839 -Mdelphi -XS {1} -o{0}", Path.Combine(workingTestDirectory, "source.exe"), Path.Combine(workingTestDirectory, "source.cs"));
+                        break;
+                    case Language.GPlusPlus:
+                        startInfo.ExecutableFile = "g++";
+                        //g++ -static -lm -s -x c++ -O2 -o {filename}.exe {file}
+                        startInfo.Arguments = string.Format(" -static -lm -s -x c++ -O2 -o {0} {1}", Path.Combine(workingTestDirectory, "source.exe"), Path.Combine(workingTestDirectory, "source.cs"));
+                        break;
+                    default:
+                        break;
+                }
+            }
             else
                 startInfo.Arguments = string.Format(" /nologo /out:{0} {1}", Path.Combine(workingTestDirectory, "source.exe"), Path.Combine(workingTestDirectory, "source.cs"));
             startInfo.WorkingTimeLimit = 10000;
+
+            Console.WriteLine("Compiling {0} ...", language);
             var executedResult = runner.Run(startInfo);
             testingResult.CompilationOutput = string.Concat(executedResult.ErrorOutputString, executedResult.OutputString);
             if (executedResult.ExitCode != 0)
             {
                 testingResult.CompilationVerdict = Verdict.CopilationError;
+                Console.WriteLine("Verdict: {0}.", testingResult.CompilationVerdict);
                 //TODO: Return compile error result
                 return testingResult;
             }
             testingResult.CompilationVerdict = Verdict.Accepted;
+            Console.WriteLine("Verdict: {0}.", testingResult.CompilationVerdict);
 
             string executedFile = Path.Combine(workingTestDirectory, "source.exe");
 
@@ -50,6 +73,8 @@ namespace Coticula2
             List<Verdict> testResults = new List<Verdict>();
             foreach (var testDirectory in testDirectories)
             {
+                Console.WriteLine("Testing {0}/{1} ...", testResults.Count+1, testDirectories.Length);
+
                 var inputFiles = Directory.GetFiles(testDirectory, "in.txt");
                 if (inputFiles.Length != 1)
                 {
@@ -90,6 +115,7 @@ namespace Coticula2
                 }
 
                 testResults.Add(currentVerdict);
+                Console.WriteLine("Verdict: {0}.", currentVerdict);
             }
 
             testingResult.TestVerdicts = testResults.ToArray();
@@ -131,7 +157,7 @@ namespace Coticula2
 
                 //for Unix with Mono (mcs)
                 if (IsUnix)
-                    currentCompiler = section.Settings["McsCompiler"].Value;
+                    currentCompiler = section.Settings["DmcsCompiler"].Value;
 
                 return currentCompiler;
             }

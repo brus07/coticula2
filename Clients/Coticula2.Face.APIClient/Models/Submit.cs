@@ -13,11 +13,12 @@ namespace Coticula2.Face.Models
 
         public DateTime SubmitTime { get; set; }
 
-        //public int LanguageId { get; set; }
-
         public int Status { get; set; }
 
         public int ProblemID { get; set; }
         public Problem Problem { get; set; }
+
+        public int ProgrammingLanguageID { get; set; }
+        public ProgrammingLanguage ProgrammingLanguage { get; set; }
     }
 }
