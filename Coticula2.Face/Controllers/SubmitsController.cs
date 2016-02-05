@@ -61,6 +61,7 @@ namespace Coticula2.Face.Controllers
             if (ModelState.IsValid)
             {
                 submit.SubmitTime = DateTime.Now;
+                submit.VerdictId = 1;
                 _context.Submits.Add(submit);
                 _context.SaveChanges();
                 return RedirectToAction("Index");
