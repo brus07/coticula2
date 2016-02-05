@@ -30,7 +30,7 @@ namespace Coticula2
             //HACK: only for CSharp (2)
             if (IsUnix)
             {
-                startInfo.Arguments = string.Format(" -out:{0} {1}", Path.Combine(workingTestDirectory, "source.exe"), Path.Combine(workingTestDirectory, "source.cs"));
+                startInfo.Arguments = string.Format(" -o+ -out:{0} {1}", Path.Combine(workingTestDirectory, "source.exe"), Path.Combine(workingTestDirectory, "source.cs"));
                 switch (language)
                 {
                     case Language.CSharp:
@@ -115,7 +115,7 @@ namespace Coticula2
                 }
 
                 testResults.Add(currentVerdict);
-                Console.WriteLine("Verdict: {0}.", currentVerdict);
+                Console.WriteLine("Verdict: {0}; Time used: {1}ms; Memory used: {2}MiB;", currentVerdict, testExecutedResult.WorkingTime, testExecutedResult.PeakMemoryUsed);
             }
 
             testingResult.TestVerdicts = testResults.ToArray();
