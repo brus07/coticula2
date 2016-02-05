@@ -12,6 +12,7 @@ namespace Coticula2.Face.Models
         public DbSet<Problem> Problems { get; set; }
         public DbSet<Submit> Submits { get; set; }
         public DbSet<ProgrammingLanguage> ProgrammingLanguages { get; set; }
+        public DbSet<Verdict> Verdicts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

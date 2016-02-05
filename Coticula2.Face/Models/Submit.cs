@@ -13,7 +13,8 @@ namespace Coticula2.Face.Models
 
         public DateTime SubmitTime { get; set; }
 
-        public int Status { get; set; }
+        public int VerdictId { get; set; }
+        public Verdict Verdict { get; set; }
 
         public int ProblemID { get; set; }
         public Problem Problem { get; set; }

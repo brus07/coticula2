@@ -22,7 +22,7 @@ namespace Coticula2.Face.Controllers
         [HttpGet]
         public IEnumerable<int> GetSubmits()
         {
-            var untestedSubmits = _context.Submits.Where(m => m.Status == 0);
+            var untestedSubmits = _context.Submits.Where(m => m.VerdictId == 1);
             List<int> ids = new List<int>();
             foreach (var item in untestedSubmits)
             {
@@ -64,7 +64,7 @@ namespace Coticula2.Face.Controllers
             {
                 return HttpBadRequest();
             }
-            _context.Submits.Single(m => m.SubmitID == id).Status = submit.Status;
+            _context.Submits.Single(m => m.SubmitID == id).VerdictId = submit.VerdictId;
             //_context.Entry(submit).State = EntityState.Modified;
 
             try
