@@ -83,12 +83,28 @@ public class Swap
     private static void Main()
     {
         string[] tokens = Console.ReadLine().Split();
-        Console.WriteLine(""{ 0 } { 1 }"", int.Parse(tokens[1]), int.Parse(tokens[0]));
+        Console.WriteLine(""{0} {1}"", int.Parse(tokens[1]), int.Parse(tokens[0]));
                     }
 }",
                         SubmitTime = DateTime.Now,
                         ProblemID = 1,
                         ProgrammingLanguageID = 1
+                    },
+                    new Submit()
+                    {
+                        Solution = @"
+#include <cstdio>
+
+int main()
+{
+	int a,b;
+	scanf(""%d%d"", &a, &b);
+	printf(""%d %d"", b, a);
+	return 0;
+}",
+                        SubmitTime = DateTime.Now,
+                        ProblemID = 1,
+                        ProgrammingLanguageID = 3
                     }
                 );
                 context.SaveChanges();
