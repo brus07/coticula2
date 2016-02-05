@@ -60,17 +60,35 @@ namespace Coticula2.Face.APIClient
                     if (testingResult.CompilationVerdict == Verdict.CopilationError)
                     {
                         Console.WriteLine("Compilation output:{0}{1}", Environment.NewLine, testingResult.CompilationOutput);
-                        submit.Status = 10;
+                        submit.VerdictId = 3;
                     }
                     else
                     {
-                        submit.Status = 1;
+                        submit.VerdictId = 2;
                         for (int i = 0; i < testingResult.TestVerdicts.Length; i++)
                         {
-                            if (testingResult.TestVerdicts[i] != Verdict.Accepted)
+                            int currentStatus = 1;
+                            switch (testingResult.TestVerdicts[i])
                             {
-                                submit.Status = (i + 1) * 100;
+                                case Verdict.Accepted:
+                                    currentStatus = 2;
+                                    break;
+                                case Verdict.CopilationError:
+                                    currentStatus = 3;
+                                    break;
+                                case Verdict.WrongAnswer:
+                                    currentStatus = 4;
+                                    break;
+                                case Verdict.RunTimeError:
+                                    currentStatus = 7;
+                                    break;
+                                case Verdict.TimeLimit:
+                                    currentStatus = 5;
+                                    break;
+                                default:
+                                    break;
                             }
+                            submit.VerdictId = Math.Max(submit.VerdictId, currentStatus);
                             Console.WriteLine("Verdict {0}: {1}", i, testingResult.TestVerdicts[i]);
                         }
                     }

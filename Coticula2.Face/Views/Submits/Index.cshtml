@@ -21,7 +21,7 @@
             @Html.DisplayNameFor(model => model.ProgrammingLanguage)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Status)
+            @Html.DisplayNameFor(model => model.Verdict)
         </th>
         <th></th>
     </tr>
@@ -38,7 +38,7 @@
             @Html.DisplayFor(modelItem => item.ProgrammingLanguage.Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Status)
+            @Html.DisplayFor(modelItem => item.Verdict.Name)
         </td>
         <td>
             <a asp-action="Edit" asp-route-id="@item.SubmitID">Edit</a> |

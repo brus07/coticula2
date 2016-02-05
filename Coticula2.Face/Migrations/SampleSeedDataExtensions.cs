@@ -14,6 +14,40 @@ namespace Coticula2.Face.Migrations
             //var context = serviceProvider.GetService<ApplicationDbContext>();
 
             var context = contextList.First();
+            if (!context.Verdicts.Any())
+            {
+                context.Verdicts.AddRange(
+                    new Verdict()
+                    {
+                        Name = "Waiting"
+                    },
+                    new Verdict()
+                    {
+                        Name = "Accepted"
+                    },
+                    new Verdict()
+                    {
+                        Name = "Compilation Error"
+                    },
+                    new Verdict()
+                    {
+                        Name = "Wrong Answer"
+                    },
+                    new Verdict()
+                    {
+                        Name = "Time Limit"
+                    },
+                    new Verdict()
+                    {
+                        Name = "Memory Limit"
+                    },
+                    new Verdict()
+                    {
+                        Name = "Run-time Error"
+                    }
+                );
+                context.SaveChanges();
+            }
             if (!context.Problems.Any())
             {
                 context.Problems.AddRange(
@@ -51,18 +85,16 @@ namespace Coticula2.Face.Migrations
                 context.Submits.AddRange(
                     new Submit()
                     {
-                        Solution = @"
-var a,b:integer;
-begin
-    read(a, b);
-    write(b, ' ', a);
-end.",
+                        //compilation error
+                        Solution = @"var",
                         SubmitTime = DateTime.Now,
                         ProblemID = 1,
-                        ProgrammingLanguageID = 2
+                        ProgrammingLanguageID = 2, //C# 
+                        VerdictId = 1
                     },
                     new Submit()
                     {
+                        //wrong answer
                         Solution = @"
 var a,b:integer;
 begin
@@ -71,7 +103,21 @@ begin
 end.",
                         SubmitTime = DateTime.Now,
                         ProblemID = 1,
-                        ProgrammingLanguageID = 2
+                        ProgrammingLanguageID = 2, //FPC
+                        VerdictId = 1
+                    },
+                    new Submit()
+                    {
+                        Solution = @"
+var a,b:integer;
+begin
+    read(a, b);
+    write(b, ' ', a);
+end.",
+                        SubmitTime = DateTime.Now,
+                        ProblemID = 1,
+                        ProgrammingLanguageID = 2, //FPC
+                        VerdictId = 1
                     },
                     new Submit()
                     {
@@ -88,7 +134,8 @@ public class Swap
 }",
                         SubmitTime = DateTime.Now,
                         ProblemID = 1,
-                        ProgrammingLanguageID = 1
+                        ProgrammingLanguageID = 1, //C#
+                        VerdictId = 1
                     },
                     new Submit()
                     {
@@ -104,7 +151,59 @@ int main()
 }",
                         SubmitTime = DateTime.Now,
                         ProblemID = 1,
-                        ProgrammingLanguageID = 3
+                        ProgrammingLanguageID = 3, //G++
+                        VerdictId = 1
+                    },
+                    new Submit()
+                    {
+                        //wrong answer
+                        Solution = @"
+#include <cstdio>
+
+int main()
+{
+	int a,b;
+	scanf(""%d%d"", &a, &b);
+	printf(""%d %d"", b+1, a+1);
+	return 0;
+}",
+                        SubmitTime = DateTime.Now,
+                        ProblemID = 1,
+                        ProgrammingLanguageID = 3, //G++
+                        VerdictId = 1
+                    },
+                    new Submit()
+                    {
+                        //time limit
+                        Solution = @"
+#include <cstdio>
+
+int main()
+{
+	int a,b;
+	scanf(""%d%d"", &a, &b);
+    while(true);
+	return 0;
+}",
+                        SubmitTime = DateTime.Now,
+                        ProblemID = 1,
+                        ProgrammingLanguageID = 3, //G++
+                        VerdictId = 1
+                    },
+                    new Submit()
+                    {
+                        //run-time error
+                        Solution = @"
+#include <cstdio>
+
+int main()
+{
+	return 47;
+}",
+                        SubmitTime = DateTime.Now,
+                        ProblemID = 1,
+                        ProgrammingLanguageID = 3, //G++
+                        VerdictId = 1
                     }
                 );
                 context.SaveChanges();

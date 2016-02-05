@@ -19,7 +19,7 @@ namespace Coticula2.Face.Controllers
         // GET: Submits
         public IActionResult Index()
         {
-            var applicationDbContext = _context.Submits.Include(s => s.Problem).Include(s => s.ProgrammingLanguage);
+            var applicationDbContext = _context.Submits.Include(s => s.Problem).Include(s => s.ProgrammingLanguage).Include(s => s.Verdict);
             return View(applicationDbContext.ToList());
         }
 
@@ -31,7 +31,7 @@ namespace Coticula2.Face.Controllers
                 return HttpNotFound();
             }
 
-            Submit submit = _context.Submits.Include(s => s.ProgrammingLanguage).Single(m => m.SubmitID == id);
+            Submit submit = _context.Submits.Include(s => s.ProgrammingLanguage).Include(s => s.Verdict).Single(m => m.SubmitID == id);
             if (submit == null)
             {
                 return HttpNotFound();
@@ -83,7 +83,8 @@ namespace Coticula2.Face.Controllers
                 return HttpNotFound();
             }
             ViewData["ProblemID"] = new SelectList(_context.Problems, "ProblemID", "Problem", submit.ProblemID);
-            ViewData["ProgrammingLanguages"] = new SelectList(_context.ProgrammingLanguages, "ProgrammingLanguageID", "Name");
+            ViewData["ProgrammingLanguages"] = new SelectList(_context.ProgrammingLanguages, "ProgrammingLanguageID", "Name", submit.ProgrammingLanguageID);
+            ViewData["Verdicts"] = new SelectList(_context.Verdicts, "VerdictID", "Name", submit.VerdictId);
             return View(submit);
         }
 

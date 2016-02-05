@@ -52,6 +52,7 @@
     <Compile Include="Models\Language.cs" />
     <Compile Include="Models\Problem.cs" />
     <Compile Include="Models\Submit.cs" />
+    <Compile Include="Models\Verdict.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
