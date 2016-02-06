@@ -12,6 +12,9 @@
 <table class="table">
     <tr>
         <th>
+            @Html.DisplayNameFor(model => model.SubmitID)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.SubmitTime)
         </th>
         <th>
@@ -29,6 +32,9 @@
 @foreach (var item in Model) {
     <tr>
         <td>
+            <a asp-action="Details" asp-route-id="@item.SubmitID">@item.SubmitID</a>
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.SubmitTime)
         </td>
         <td>
@@ -41,8 +47,8 @@
             @Html.DisplayFor(modelItem => item.Verdict.Name)
         </td>
         <td>
+            <a asp-action="Retest" asp-route-id="@item.SubmitID">Retest</a> |
             <a asp-action="Edit" asp-route-id="@item.SubmitID">Edit</a> |
-            <a asp-action="Details" asp-route-id="@item.SubmitID">Details</a> |
             <a asp-action="Delete" asp-route-id="@item.SubmitID">Delete</a>
         </td>
     </tr>
