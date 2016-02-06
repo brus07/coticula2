@@ -19,7 +19,7 @@ namespace Coticula2.Face.Controllers
         // GET: Submits
         public IActionResult Index()
         {
-            var applicationDbContext = _context.Submits.Include(s => s.Problem).Include(s => s.ProgrammingLanguage).Include(s => s.Verdict);
+            var applicationDbContext = _context.Submits.Include(s => s.Problem).Include(s => s.ProgrammingLanguage).Include(s => s.Verdict).OrderByDescending(s=>s.SubmitID);
             return View(applicationDbContext.ToList());
         }
 
@@ -38,6 +38,24 @@ namespace Coticula2.Face.Controllers
             }
 
             return View(submit);
+        }
+
+        // GET: Submits/Retest/5
+        public IActionResult Retest(int? id)
+        {
+            if (id == null)
+            {
+                return HttpNotFound();
+            }
+
+            Submit submit = _context.Submits.Single(m => m.SubmitID == id);
+            if (submit == null)
+            {
+                return HttpNotFound();
+            }
+            submit.VerdictId = 1;
+            _context.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         // GET: Submits/Create
