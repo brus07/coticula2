@@ -51,7 +51,7 @@ namespace Coticula2
             }
             else
                 startInfo.Arguments = string.Format(" /nologo /out:{0} {1}", Path.Combine(workingTestDirectory, "source.exe"), Path.Combine(workingTestDirectory, "source.cs"));
-            startInfo.WorkingTimeLimit = 10000;
+            startInfo.WorkingTimeLimit = 30000;
 
             Console.WriteLine("Compiling {0} ...", language);
             var executedResult = runner.Run(startInfo);
@@ -104,6 +104,8 @@ namespace Coticula2
                 {
                     if (testExecutedResult.WorkingTime >= testStartInfo.WorkingTimeLimit)
                         currentVerdict = Verdict.TimeLimit;
+                    if (testExecutedResult.PeakMemoryUsed >= testStartInfo.MemoryLimit)
+                        currentVerdict = Verdict.MemoryLimit;
                 }
 
                 //compare outputs

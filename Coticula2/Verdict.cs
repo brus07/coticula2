@@ -12,6 +12,7 @@ namespace Coticula2
         CopilationError,
         WrongAnswer,
         RunTimeError,
-        TimeLimit
+        TimeLimit,
+        MemoryLimit
     }
 }
