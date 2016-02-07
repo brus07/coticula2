@@ -84,11 +84,14 @@ namespace Coticula2.Face.APIClient
                                     case Verdict.WrongAnswer:
                                         currentStatus = 4;
                                         break;
-                                    case Verdict.RunTimeError:
-                                        currentStatus = 7;
-                                        break;
                                     case Verdict.TimeLimit:
                                         currentStatus = 5;
+                                        break;
+                                    case Verdict.MemoryLimit:
+                                        currentStatus = 6;
+                                        break;
+                                    case Verdict.RunTimeError:
+                                        currentStatus = 7;
                                         break;
                                     default:
                                         break;
