@@ -54,6 +54,8 @@ namespace Coticula2.Face.Controllers
                 return HttpNotFound();
             }
             submit.VerdictId = 1;
+            submit.PeakMemoryUsed = 0;
+            submit.WorkingTime = 0;
             _context.SaveChanges();
             return RedirectToAction("Index");
         }

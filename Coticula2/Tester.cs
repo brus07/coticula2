@@ -70,10 +70,12 @@ namespace Coticula2
 
             string fullPathToProblem = FullPathToProblem(problemId);
             var testDirectories = Directory.GetDirectories(fullPathToProblem, "test*");
-            List<Verdict> testResults = new List<Verdict>();
+            List<TestResult> testResults = new List<TestResult>();
+            int testId = 0;
             foreach (var testDirectory in testDirectories)
             {
-                Console.WriteLine("Testing {0}/{1} ...", testResults.Count+1, testDirectories.Length);
+                testId++;
+                Console.WriteLine("Testing {0}/{1} ...", testId, testDirectories.Length);
 
                 var inputFiles = Directory.GetFiles(testDirectory, "in.txt");
                 if (inputFiles.Length != 1)
@@ -116,7 +118,7 @@ namespace Coticula2
                         currentVerdict = Verdict.WrongAnswer;
                 }
 
-                testResults.Add(currentVerdict);
+                testResults.Add(new TestResult() { TestId = testId, Verdict = currentVerdict, WorkingTime = testExecutedResult.WorkingTime, PeakMemoryUsed = testExecutedResult.PeakMemoryUsed });
                 Console.WriteLine("Verdict: {0}; Time used: {1}ms; Memory used: {2}MiB;", currentVerdict, testExecutedResult.WorkingTime, testExecutedResult.PeakMemoryUsed);
             }
 

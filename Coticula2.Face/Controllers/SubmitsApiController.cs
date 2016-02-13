@@ -64,8 +64,15 @@ namespace Coticula2.Face.Controllers
             {
                 return HttpBadRequest();
             }
-            _context.Submits.Single(m => m.SubmitID == id).VerdictId = submit.VerdictId;
-            //_context.Entry(submit).State = EntityState.Modified;
+            var submitFromDb = _context.Submits.Single(m => m.SubmitID == id);
+            if (submitFromDb == null)
+            {
+                return HttpNotFound();
+            }
+            submitFromDb.VerdictId = submit.VerdictId;
+            submitFromDb.WorkingTime = submit.WorkingTime;
+            submitFromDb.PeakMemoryUsed = submit.PeakMemoryUsed;
+            _context.Entry(submitFromDb).State = EntityState.Modified;
 
             try
             {

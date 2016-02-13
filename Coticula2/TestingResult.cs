@@ -11,6 +11,6 @@ namespace Coticula2
         public Verdict CompilationVerdict { get; set; }
         public string CompilationOutput { get; set; }
 
-        public Verdict[] TestVerdicts { get; set; }
+        public TestResult[] TestVerdicts { get; set; }
     }
 }
