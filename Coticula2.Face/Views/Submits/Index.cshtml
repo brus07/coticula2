@@ -26,6 +26,12 @@
         <th>
             @Html.DisplayNameFor(model => model.Verdict)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WorkingTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PeakMemoryUsed)
+        </th>
         <th></th>
     </tr>
     
@@ -45,6 +51,12 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Verdict.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WorkingTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PeakMemoryUsed)
         </td>
         <td>
             <a asp-action="Retest" asp-route-id="@item.SubmitID">Retest</a> |

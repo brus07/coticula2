@@ -73,7 +73,7 @@ namespace Coticula2.Face.APIClient
                             for (int i = 0; i < testingResult.TestVerdicts.Length; i++)
                             {
                                 int currentStatus = 1;
-                                switch (testingResult.TestVerdicts[i])
+                                switch (testingResult.TestVerdicts[i].Verdict)
                                 {
                                     case Verdict.Accepted:
                                         currentStatus = 2;
@@ -97,7 +97,8 @@ namespace Coticula2.Face.APIClient
                                         break;
                                 }
                                 submit.VerdictId = Math.Max(submit.VerdictId, currentStatus);
-                                Console.WriteLine("Verdict {0}: {1}", i, testingResult.TestVerdicts[i]);
+                                submit.WorkingTime = Math.Max(submit.WorkingTime, testingResult.TestVerdicts[i].WorkingTime);
+                                submit.PeakMemoryUsed = Math.Max(submit.PeakMemoryUsed, testingResult.TestVerdicts[i].PeakMemoryUsed);
                             }
                         }
                         //submit.Status = 1;
