@@ -38,6 +38,25 @@ namespace Coticula2.Face.Controllers
             return View(problem);
         }
 
+        // GET: Problems/Retest/5
+        public IActionResult Retest(int? id)
+        {
+            if (id == null)
+            {
+                return HttpNotFound();
+            }
+
+            var submits = _context.Submits.Where(m => m.ProblemID == id);
+            foreach (var submit in submits)
+            {
+                submit.VerdictId = 1;
+                submit.WorkingTime = 0;
+                submit.PeakMemoryUsed = 0;
+            }
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
         // GET: Problems/Create
         public IActionResult Create()
         {
