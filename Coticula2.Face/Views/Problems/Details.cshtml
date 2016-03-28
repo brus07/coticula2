@@ -1,0 +1,31 @@
+@model Coticula2.Face.Models.Problem
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Problem</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+    </dl>
+</div>
+<p>
+    <a asp-action="Edit" asp-route-id="@Model.ProblemID">Edit</a> |
+    <a asp-action="Index">Back to List</a> |
+    <a asp-controller="Submits" asp-action="Create" asp-route-problemId="@Model.ProblemID">Submit</a> 
+</p>

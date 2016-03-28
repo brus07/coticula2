@@ -1,0 +1,54 @@
+@model Coticula2.Face.Models.Submit
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Submit</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ProgrammingLanguage.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ProgrammingLanguage.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Solution)
+        </dt>
+        <dd>
+            <textarea asp-for="Solution" class="form-control" disabled></textarea>
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Verdict)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Verdict.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.WorkingTime)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.WorkingTime)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PeakMemoryUsed)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PeakMemoryUsed)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SubmitTime)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SubmitTime)
+        </dd>
+    </dl>
+</div>
+<p>
+    <a asp-action="Edit" asp-route-id="@Model.SubmitID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</p>

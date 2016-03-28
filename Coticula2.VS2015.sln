@@ -1,0 +1,51 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coticula2", "Coticula2\Coticula2.csproj", "{F206D895-EBD8-4136-B454-5D2E6F142830}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coticula2.Test", "Coticula2.Test\Coticula2.Test.csproj", "{C7924FD6-56C3-464C-A398-4C3FBF75D4BD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coticula2.Executer", "Coticula2.Executer\Coticula2.Executer.csproj", "{69406123-FF41-45A5-9193-114A14CC2A4C}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Coticula2.Face", "Coticula2.Face\Coticula2.Face.xproj", "{71338BD4-54DB-4316-A83A-17A08BDB387F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Clients", "Clients", "{DC7EF05B-B977-472C-834E-7806A0F4CA52}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coticula2.Face.APIClient", "Clients\Coticula2.Face.APIClient\Coticula2.Face.APIClient.csproj", "{3D3AE3D2-0F22-45F5-A42C-926F847334AE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F206D895-EBD8-4136-B454-5D2E6F142830}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F206D895-EBD8-4136-B454-5D2E6F142830}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F206D895-EBD8-4136-B454-5D2E6F142830}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F206D895-EBD8-4136-B454-5D2E6F142830}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7924FD6-56C3-464C-A398-4C3FBF75D4BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7924FD6-56C3-464C-A398-4C3FBF75D4BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7924FD6-56C3-464C-A398-4C3FBF75D4BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7924FD6-56C3-464C-A398-4C3FBF75D4BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69406123-FF41-45A5-9193-114A14CC2A4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69406123-FF41-45A5-9193-114A14CC2A4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69406123-FF41-45A5-9193-114A14CC2A4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69406123-FF41-45A5-9193-114A14CC2A4C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71338BD4-54DB-4316-A83A-17A08BDB387F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71338BD4-54DB-4316-A83A-17A08BDB387F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71338BD4-54DB-4316-A83A-17A08BDB387F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71338BD4-54DB-4316-A83A-17A08BDB387F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D3AE3D2-0F22-45F5-A42C-926F847334AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D3AE3D2-0F22-45F5-A42C-926F847334AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D3AE3D2-0F22-45F5-A42C-926F847334AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D3AE3D2-0F22-45F5-A42C-926F847334AE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3D3AE3D2-0F22-45F5-A42C-926F847334AE} = {DC7EF05B-B977-472C-834E-7806A0F4CA52}
+	EndGlobalSection
+EndGlobal

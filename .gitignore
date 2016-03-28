@@ -5,6 +5,8 @@
 *.suo
 *.user
 *.sln.docstates
+.vs/
+**/wwwroot/lib/
 
 # Build results
 [Dd]ebug/

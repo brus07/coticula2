@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>protex</name>
+    </assembly>
+    <members>
+        <member name="P:Protex.IResult.WorkingTime">
+            <summary>
+            Worked time in milliseconds.
+            </summary>
+        </member>
+        <member name="P:Protex.IResult.PeakMemoryUsed">
+            <summary>
+            Maximum used memory in MiB.
+            </summary>
+        </member>
+        <member name="P:Protex.IRunnerStartInfo.WorkingTimeLimit">
+            <summary>
+            Limits of working time in milliseconds.
+            </summary>
+        </member>
+        <member name="P:Protex.IRunnerStartInfo.MemoryLimit">
+            <summary>
+            Limits of memory in MiB.
+            </summary>
+        </member>
+    </members>
+</doc>

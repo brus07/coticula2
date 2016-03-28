@@ -1,0 +1,68 @@
+@model IEnumerable<Coticula2.Face.Models.Submit>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.SubmitID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SubmitTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Problem)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProgrammingLanguage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Verdict)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WorkingTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PeakMemoryUsed)
+        </th>
+        <th></th>
+    </tr>
+    
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            <a asp-action="Details" asp-route-id="@item.SubmitID">@item.SubmitID</a>
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SubmitTime)
+        </td>
+        <td>
+            <a asp-controller="Problems" asp-action="Details" asp-route-id="@item.ProblemID">@item.Problem.Title</a>
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProgrammingLanguage.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Verdict.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WorkingTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PeakMemoryUsed)
+        </td>
+        <td>
+            <a asp-action="Retest" asp-route-id="@item.SubmitID">Retest</a> |
+            <a asp-action="Edit" asp-route-id="@item.SubmitID">Edit</a> |
+            <a asp-action="Delete" asp-route-id="@item.SubmitID">Delete</a>
+        </td>
+    </tr>
+}
+</table>
