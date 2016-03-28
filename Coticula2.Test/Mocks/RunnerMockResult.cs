@@ -13,7 +13,7 @@ namespace Coticula2.Test.Mocks
         {
             get
             {
-                throw new NotImplementedException();
+                return "";
             }
 
             set
@@ -38,7 +38,7 @@ namespace Coticula2.Test.Mocks
         {
             get
             {
-                throw new NotImplementedException();
+                return 10;
             }
 
             set

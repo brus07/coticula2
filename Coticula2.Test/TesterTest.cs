@@ -24,7 +24,7 @@ public class Swap
 
             Assert.AreEqual(Verdict.Accepted, result.CompilationVerdict);
             Assert.Greater(result.TestVerdicts.Length, 0);
-            Assert.That(result.TestVerdicts, Is.All.EqualTo(Verdict.Accepted));
+            Assert.That(List.Map(result.TestVerdicts).Property("Verdict"), Is.All.EqualTo(Verdict.Accepted));
         }
 
         [Test]
@@ -64,7 +64,7 @@ public class Swap
 
             Assert.AreEqual(Verdict.Accepted, result.CompilationVerdict);
             Assert.Greater(result.TestVerdicts.Length, 0);
-            Assert.That(result.TestVerdicts, Is.All.EqualTo(Verdict.RunTimeError));
+            Assert.That(List.Map(result.TestVerdicts).Property("Verdict"), Has.Some.EqualTo(Verdict.RunTimeError));
         }
 
         [Test]
@@ -84,7 +84,7 @@ public class Swap
 
             Assert.AreEqual(Verdict.Accepted, result.CompilationVerdict);
             Assert.Greater(result.TestVerdicts.Length, 0);
-            Assert.That(result.TestVerdicts, Is.All.EqualTo(Verdict.WrongAnswer));
+            Assert.That(List.Map(result.TestVerdicts).Property("Verdict"), Is.All.EqualTo(Verdict.WrongAnswer));
         }
 
         [Test]
@@ -105,7 +105,8 @@ public class Swap
 
             Assert.AreEqual(Verdict.Accepted, result.CompilationVerdict);
             Assert.Greater(result.TestVerdicts.Length, 0);
-            Assert.Contains(Verdict.WrongAnswer, result.TestVerdicts);
+            Assert.That(List.Map(result.TestVerdicts).Property("Verdict"), Has.Some.EqualTo(Verdict.Accepted));
+            Assert.That(List.Map(result.TestVerdicts).Property("Verdict"), Has.Some.EqualTo(Verdict.WrongAnswer));
         }
 
         [Test]
@@ -126,7 +127,7 @@ public class Swap
 
             Assert.AreEqual(Verdict.Accepted, result.CompilationVerdict);
             Assert.Greater(result.TestVerdicts.Length, 0);
-            Assert.Contains(Verdict.TimeLimit, result.TestVerdicts);
+            Assert.That(List.Map(result.TestVerdicts).Property("Verdict"), Is.All.EqualTo(Verdict.TimeLimit));
         }
     }
 }
