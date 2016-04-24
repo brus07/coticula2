@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Jobs\CompareStringOutputsJob.cs" />
+    <Compile Include="Jobs\CompileJob.cs" />
+    <Compile Include="Jobs\ExecuteFileJob.cs" />
+    <Compile Include="Jobs\TestJob.cs" />
+    <Compile Include="Jobs\TestSolutionJob.cs" />
+    <Compile Include="Job\IJob.cs" />
     <Compile Include="Language.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tester.cs" />

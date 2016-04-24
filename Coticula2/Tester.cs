@@ -21,6 +21,8 @@ namespace Coticula2
             TestingResult testingResult = new TestingResult();
 
             var workingTestDirectory = CreateTemporaryDirectory();
+
+            #region Compile
             //HACK: only for CSharp (1)
             var sourceFile = Path.Combine(workingTestDirectory, "source.cs");
             File.WriteAllText(sourceFile, solution);
@@ -65,7 +67,9 @@ namespace Coticula2
             }
             testingResult.CompilationVerdict = Verdict.Accepted;
             Console.WriteLine("Verdict: {0}.", testingResult.CompilationVerdict);
+            #endregion
 
+            #region Test solution
             string executedFile = Path.Combine(workingTestDirectory, "source.exe");
 
             string fullPathToProblem = FullPathToProblem(problemId);
@@ -121,6 +125,7 @@ namespace Coticula2
                 testResults.Add(new TestResult() { TestId = testId, Verdict = currentVerdict, WorkingTime = testExecutedResult.WorkingTime, PeakMemoryUsed = testExecutedResult.PeakMemoryUsed });
                 Console.WriteLine("Verdict: {0}; Time used: {1}ms; Memory used: {2}MiB;", currentVerdict, testExecutedResult.WorkingTime, testExecutedResult.PeakMemoryUsed);
             }
+            #endregion
 
             testingResult.TestVerdicts = testResults.ToArray();
             return testingResult;
@@ -146,7 +151,7 @@ namespace Coticula2
             return tempDirectory;
         }
 
-        static string Compiler
+        public static string Compiler
         {
             get
             {
@@ -167,7 +172,7 @@ namespace Coticula2
             }
         }
 
-        static bool IsUnix
+        public static bool IsUnix
         {
             get
             {
