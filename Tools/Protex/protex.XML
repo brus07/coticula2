@@ -11,7 +11,7 @@
         </member>
         <member name="P:Protex.IResult.PeakMemoryUsed">
             <summary>
-            Maximum used memory in MiB.
+            Maximum used memory in KiB.
             </summary>
         </member>
         <member name="P:Protex.IRunnerStartInfo.WorkingTimeLimit">
@@ -21,7 +21,17 @@
         </member>
         <member name="P:Protex.IRunnerStartInfo.MemoryLimit">
             <summary>
-            Limits of memory in MiB.
+            Limits of memory in KiB.
+            </summary>
+        </member>
+        <member name="P:Protex.RunnerStartInfo.WorkingTimeLimit">
+            <summary>
+            Limits of working time in milliseconds.
+            </summary>
+        </member>
+        <member name="P:Protex.RunnerStartInfo.MemoryLimit">
+            <summary>
+            Limits of memory in KiB.
             </summary>
         </member>
     </members>

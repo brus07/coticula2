@@ -22,6 +22,7 @@ namespace Coticula2
 
             var workingTestDirectory = CreateTemporaryDirectory();
 
+            
             #region Compile
             //HACK: only for CSharp (1)
             var sourceFile = Path.Combine(workingTestDirectory, "source.cs");
@@ -54,6 +55,7 @@ namespace Coticula2
             else
                 startInfo.Arguments = string.Format(" /nologo /out:{0} {1}", Path.Combine(workingTestDirectory, "source.exe"), Path.Combine(workingTestDirectory, "source.cs"));
             startInfo.WorkingTimeLimit = 30000;
+            startInfo.MemoryLimit = 256 * 1024;
 
             Console.WriteLine("Compiling {0} ...", language);
             var executedResult = runner.Run(startInfo);
@@ -123,7 +125,7 @@ namespace Coticula2
                 }
 
                 testResults.Add(new TestResult() { TestId = testId, Verdict = currentVerdict, WorkingTime = testExecutedResult.WorkingTime, PeakMemoryUsed = testExecutedResult.PeakMemoryUsed });
-                Console.WriteLine("Verdict: {0}; Time used: {1}ms; Memory used: {2}MiB;", currentVerdict, testExecutedResult.WorkingTime, testExecutedResult.PeakMemoryUsed);
+                Console.WriteLine("Verdict: {0}; Time used: {1}ms; Memory used: {2}KiB;", currentVerdict, testExecutedResult.WorkingTime, testExecutedResult.PeakMemoryUsed);
             }
             #endregion
 
