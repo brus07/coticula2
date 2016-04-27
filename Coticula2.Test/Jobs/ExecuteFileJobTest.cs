@@ -56,10 +56,8 @@ namespace Coticula2.Test.Jobs
             job.Execute();
             var result = job.TestExecutedResult;
             Assert.That(result.ExitCode, Is.EqualTo(0));
-            Assert.That(result.OutputString, Is.EqualTo(File.ReadAllText(inputFilePath)));
+            Assert.That(TrimEndNewLineChars(result.OutputString), Is.EqualTo(TrimEndNewLineChars(File.ReadAllText(inputFilePath))));
         }
-
-
 
         [Test]
         public void ExecuteHelloWorldStartInfo()
@@ -111,7 +109,25 @@ namespace Coticula2.Test.Jobs
             job.Execute();
             var result = job.TestExecutedResult;
             Assert.That(result.ExitCode, Is.EqualTo(0));
-            Assert.That(result.OutputString, Is.EqualTo(File.ReadAllText(inputFilePath)));
+            Assert.That(TrimEndNewLineChars(result.OutputString), Is.EqualTo(TrimEndNewLineChars(File.ReadAllText(inputFilePath))));
+        }
+    
+        [Test]
+        public void ExecuteEchoLineWithSpaces()
+        {
+            string executableFilePath = Path.Combine(PathToTestData, "EchoLine.exe");
+            string inputFilePath = Path.Combine(PathToTestData, "input_SpecialForEchoWithSpaces.txt");
+            ExecuteFileJob job = new ExecuteFileJob(new RunnerMock(), executableFilePath, inputFilePath);
+            job.Execute();
+            var result = job.TestExecutedResult;
+            Assert.That(result.ExitCode, Is.EqualTo(0));
+            Assert.That(TrimEndNewLineChars(result.OutputString), Is.EqualTo(TrimEndNewLineChars(File.ReadAllText(inputFilePath))));
+        }
+
+        private string TrimEndNewLineChars(string s)
+        {
+            char[] charsToTrim = { '\r', '\n' };
+            return s.TrimEnd(charsToTrim);
         }
     }
 }
