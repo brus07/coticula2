@@ -4,6 +4,7 @@ using Protex;
 using RestSharp;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,7 +19,7 @@ namespace Coticula2.Face.APIClient
             while (needNextTest)
             {
                 needNextTest = false;
-                var client = new RestClient("http://192.168.1.2:5000/");
+                var client = new RestClient(ConfigurationManager.AppSettings["FaceBaseUrl"]);
 
                 var request = new RestRequest();
                 request.Resource = "api/SubmitsApi";
@@ -112,6 +113,13 @@ namespace Coticula2.Face.APIClient
                             needNextTest = true;
                         }
                     }
+                }
+                else
+                {
+                    Console.WriteLine("Incorrect response status. ResponseStatus:{0}, ErrorMessage:{1}", response.ResponseStatus, response.ErrorMessage);
+                    const string message = "Error retrieving response.  Check inner details for more info.";
+                    var appException = new ApplicationException(message, response.ErrorException);
+                    throw appException;
                 }
             }
         }
