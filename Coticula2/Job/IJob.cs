@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Coticula2.Job
 {
-    internal interface IJob
+    public interface IJob
     {
         void Execute();
     }

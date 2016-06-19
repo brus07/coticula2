@@ -6,7 +6,7 @@ using System.IO;
 
 namespace Coticula2.Jobs
 {
-    internal class TestSolutionJob : IJob
+    public class TestSolutionJob : IJob
     {
         private readonly IRunner Runner;
         private readonly int ProblemId;
