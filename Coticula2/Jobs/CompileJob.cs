@@ -31,10 +31,9 @@ namespace Coticula2.Jobs
 
             var startInfo = Creator.CreateRunnerStartInfo();
             //HACH: need remove Tester.Compiler
-            startInfo.ExecutableFile = Tester.Compiler;
-            //HACK: only for CSharp (2)
+            startInfo.ExecutableFile = CompilerHelper.Compiler;
             //HACK: need remove Tester.IsUnix
-            if (Tester.IsUnix)
+            if (CompilerHelper.IsUnix)
             {
                 startInfo.Arguments = string.Format(" -o+ -out:{0} {1}", pathToExeFile, pathToSourceCode);
                 switch (Language)
