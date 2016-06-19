@@ -1,5 +1,6 @@
 ﻿using Coticula2;
 using Coticula2.Face.Models;
+using Coticula2.Jobs;
 using Protex;
 using RestSharp;
 using System;
@@ -43,9 +44,6 @@ namespace Coticula2.Face.APIClient
                         Console.WriteLine("Submit time: {0}", submit.SubmitTime);
                         Console.WriteLine("Problem ID: {0}", submit.ProblemID);
 
-                        //test
-                        IRunner runner = Protex.Windows.Creator.CreateRunner();
-                        Tester tester = new Tester(runner);
                         Language language = Language.CSharp;
                         switch (submit.ProgrammingLanguageID)
                         {
@@ -61,8 +59,12 @@ namespace Coticula2.Face.APIClient
                             default:
                                 break;
                         }
-                        string solution = submit.Solution;
-                        var testingResult = tester.Test(submit.ProblemID, solution, language);
+
+                        //test
+                        IRunner runner = Protex.Windows.Creator.CreateRunner();
+                        TestSolutionJob job = new TestSolutionJob(runner, submit.ProblemID, submit.Solution, language);
+                        job.Execute();
+                        var testingResult = job.TestingResult;
                         if (testingResult.CompilationVerdict == Verdict.CopilationError)
                         {
                             Console.WriteLine("Compilation output:{0}{1}", Environment.NewLine, testingResult.CompilationOutput);
