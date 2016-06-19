@@ -25,7 +25,7 @@ namespace Coticula2.Test.Mocks
             {
                 if (runnerStartInfo.InputString != null)
                     process.StandardInput.WriteLine(runnerStartInfo.InputString);
-                if (!process.WaitForExit(runnerStartInfo.WorkingTimeLimit * 3))
+                if (!process.WaitForExit(runnerStartInfo.WorkingTimeLimit * 5))
                 {
                     process.Kill();
                     result.ExitCode = -1;

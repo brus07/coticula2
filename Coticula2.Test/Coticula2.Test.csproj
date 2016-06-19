@@ -58,7 +58,6 @@
     <Compile Include="Mocks\RunnerMock.cs" />
     <Compile Include="Mocks\RunnerMockResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TesterTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Coticula2\Coticula2.csproj">
