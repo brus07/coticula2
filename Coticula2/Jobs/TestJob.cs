@@ -77,7 +77,7 @@ namespace Coticula2.Jobs
             }
 
             TestResult = new TestResult() { TestId = TestId, Verdict = currentVerdict, WorkingTime = testExecutedResult.WorkingTime, PeakMemoryUsed = testExecutedResult.PeakMemoryUsed };
-            Console.WriteLine("Verdict: {0}; Time used: {1}ms; Memory used: {2}MiB;", currentVerdict, testExecutedResult.WorkingTime, testExecutedResult.PeakMemoryUsed);
+            Console.WriteLine("Verdict: {0}; Time used: {1}ms; Memory used: {2}KiB;", currentVerdict, testExecutedResult.WorkingTime, testExecutedResult.PeakMemoryUsed);
         }
 
         public static string FullPathToProblem(int id)
