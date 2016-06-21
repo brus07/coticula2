@@ -16,6 +16,8 @@ namespace Coticula2.Face.APIClient
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("Using {0}", typeof(Coticula2.Language).Assembly.GetName().FullName);
+
             bool needNextTest = true;
             while (needNextTest)
             {
