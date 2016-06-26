@@ -17,25 +17,37 @@ namespace Coticula2.Jobs
         private Language Language;
         private string WorkingDirectoryPath;
 
+        private readonly string fullPathToProblem;
+
         public ValidatorProblemJob(IRunner runner, int problemId)
         {
             Runner = runner;
             ProblemId = problemId;
+            fullPathToProblem = TestJob.FullPathToProblem(ProblemId);
         }
 
-        public ValidatorProblemJob(IRunner runner, int problemId, string validatorCode, Language language)
+        public ValidatorProblemJob(IRunner runner, int problemId, string validatorCode, Language language):this(runner,problemId)
         {
-            Runner = runner;
-            ProblemId = problemId;
             ValidatorCode = validatorCode;
             Language = language;
         }
 
         public TestingResult TestingResult { get; set; }
 
+        public bool HasValidator
+        {
+            get
+            {
+                var validatorFiles = Directory.GetFiles(fullPathToProblem, "validator*.*");
+                if (validatorFiles.Length == 0)
+                    return false;
+                return true;
+            }
+        }
+
         public void Execute()
         {
-            string fullPathToProblem = TestJob.FullPathToProblem(ProblemId);
+            Console.WriteLine("Validating tests for problem {0}...", ProblemId);
 
             if (ValidatorCode == null)
             {

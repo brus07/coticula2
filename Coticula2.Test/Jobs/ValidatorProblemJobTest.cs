@@ -92,11 +92,36 @@ public class ValidatorForSwapProblem
         }
 
         [Test]
+        public void TestHasValidator()
+        {
+            ValidatorProblemJob job = new ValidatorProblemJob(new RunnerMock(), 1);
+            Assert.IsTrue(job.HasValidator);
+        }
+
+        [Test]
+        public void TestNoValidator()
+        {
+            ValidatorProblemJob job = new ValidatorProblemJob(new RunnerMock(), 8811);
+            Assert.IsFalse(job.HasValidator);
+        }
+
+        [Test]
         [ExpectedException]
         public void IncorrectTestValidatorIncorrectLanguage()
         {
             ValidatorProblemJob job = new ValidatorProblemJob(new RunnerMock(), 8812);
             job.Execute();
+        }
+        
+        [Test]
+        public void TestSolutionJobWithIncorrectValidator()
+        {
+            TestSolutionJob job = new TestSolutionJob(new RunnerMock(), 8801, "", Language.CSharp);
+            job.Execute();
+            var result = job.TestingResult;
+
+            Assert.AreEqual(1, result.TestVerdicts.Length);
+            Assert.AreEqual(Verdict.InternalError, result.TestVerdicts[0].Verdict);
         }
     }
 }
