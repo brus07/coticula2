@@ -57,6 +57,35 @@ namespace Coticula2.Jobs
             }
             #endregion
 
+            #region Run Main Solution
+            RunMainSolutionJob runMainSolutionJob = new RunMainSolutionJob(Runner, ProblemId);
+            if (runMainSolutionJob.HasMainSolution)
+            {
+                runMainSolutionJob.Execute();
+                var runMainSolutionResult = runMainSolutionJob.TestingResult;
+                if (runMainSolutionResult.CompilationVerdict == Verdict.Accepted)
+                {
+                    bool correctTests = true;
+                    for (int i = 0; i < runMainSolutionResult.TestVerdicts.Length; i++)
+                    {
+                        if (runMainSolutionResult.TestVerdicts[i].Verdict != Verdict.Accepted)
+                        {
+                            correctTests = false;
+                            break;
+                        }
+                    }
+
+                    if (!correctTests)
+                    {
+                        List<TestResult> testsResults = new List<TestResult>();
+                        testsResults.Add(new TestResult() { TestId = 1, Verdict = Verdict.InternalError });
+                        TestingResult.TestVerdicts = testsResults.ToArray();
+                        return;
+                    }
+                }
+            }
+            #endregion
+
             WorkingDirectoryPath = CreateTemporaryDirectory();
 
             #region Compile
@@ -99,7 +128,7 @@ namespace Coticula2.Jobs
             #endregion
         }
 
-        static string CreateTemporaryDirectory()
+        public static string CreateTemporaryDirectory()
         {
             if (!Directory.Exists("Temp"))
                 Directory.CreateDirectory("Temp");

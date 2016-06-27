@@ -6,41 +6,38 @@ using System.IO;
 
 namespace Coticula2.Jobs
 {
-    /// <summary>
-    /// Validate input files in tests.
-    /// </summary>
-    public class ValidatorProblemJob : IJob
+    public class RunMainSolutionJob : IJob
     {
-        private const string ValidatorFilePattern = "validator*.*";
+        private const string SolutionFilePattern = "solution*.*";
 
         private readonly IRunner Runner;
         private readonly int ProblemId;
-        private string ValidatorCode;
+        private string SolutionCode;
         private Language Language;
         private string WorkingDirectoryPath;
 
         private readonly string fullPathToProblem;
 
-        public ValidatorProblemJob(IRunner runner, int problemId)
+        public TestingResult TestingResult { get; set; }
+
+        public RunMainSolutionJob(IRunner runner, int problemId)
         {
             Runner = runner;
             ProblemId = problemId;
             fullPathToProblem = TestJob.FullPathToProblem(ProblemId);
         }
 
-        public ValidatorProblemJob(IRunner runner, int problemId, string validatorCode, Language language) : this(runner, problemId)
+        public RunMainSolutionJob(IRunner runner, int problemId, string solutionCode, Language language) : this(runner, problemId)
         {
-            ValidatorCode = validatorCode;
+            SolutionCode = solutionCode;
             Language = language;
         }
 
-        public TestingResult TestingResult { get; set; }
-
-        public bool HasValidator
+        public bool HasMainSolution
         {
             get
             {
-                var validatorFiles = Directory.GetFiles(fullPathToProblem, ValidatorFilePattern);
+                var validatorFiles = Directory.GetFiles(fullPathToProblem, SolutionFilePattern);
                 if (validatorFiles.Length == 0)
                     return false;
                 return true;
@@ -49,14 +46,14 @@ namespace Coticula2.Jobs
 
         public void Execute()
         {
-            Console.WriteLine("Validating tests for problem {0}...", ProblemId);
+            Console.WriteLine("Generating outputs for problem {0}...", ProblemId);
 
-            if (ValidatorCode == null)
+            if (SolutionCode == null)
             {
                 //need get validator from problem
-                var validatorFiles = Directory.GetFiles(fullPathToProblem, ValidatorFilePattern);
+                var validatorFiles = Directory.GetFiles(fullPathToProblem, SolutionFilePattern);
                 if (validatorFiles.Length == 0)
-                    throw new Exception(string.Format("Not validator for Problem {0}.", ProblemId));
+                    throw new Exception(string.Format("No solution for Problem {0}.", ProblemId));
                 if (validatorFiles.Length > 1)
                 {
                     //TODO: 
@@ -73,16 +70,16 @@ namespace Coticula2.Jobs
                         Language = Language.Fpc;
                         break;
                     default:
-                        throw new Exception("Validator can be only C#, C++ or Pascal.");
+                        throw new Exception("Solution can be only C#, C++ or Pascal.");
                 }
-                ValidatorCode = File.ReadAllText(Path.Combine(fullPathToProblem, validatorFiles[0]));
+                SolutionCode = File.ReadAllText(Path.Combine(fullPathToProblem, validatorFiles[0]));
             }
 
             TestingResult = new TestingResult();
             WorkingDirectoryPath = TestSolutionJob.CreateTemporaryDirectory();
 
             #region Compile
-            CompileJob compileJob = new CompileJob(Runner, WorkingDirectoryPath, ValidatorCode, Language);
+            CompileJob compileJob = new CompileJob(Runner, WorkingDirectoryPath, SolutionCode, Language);
             compileJob.Execute();
 
             var executedResult = compileJob.TestExecutedResult;
@@ -110,7 +107,7 @@ namespace Coticula2.Jobs
                 testId++;
                 Console.WriteLine("Testing {0}/{1} ...", testId, testDirectories.Length);
 
-                ValidatorTestJob job = new ValidatorTestJob(Runner, executedFile, ProblemId, testId);
+                RunMainSolutionOnTestJob job = new RunMainSolutionOnTestJob(Runner, executedFile, ProblemId, testId);
                 job.Execute();
                 var result = job.TestResult;
 

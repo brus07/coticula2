@@ -1,5 +1,4 @@
 ﻿using Coticula2.Job;
-using Coticula2.Jobs.Comparers;
 using Protex;
 using Protex.Windows;
 using System;
@@ -7,14 +6,14 @@ using System.IO;
 
 namespace Coticula2.Jobs
 {
-    public class ValidatorTestJob : IJob
+    internal class RunMainSolutionOnTestJob : IJob
     {
         private readonly IRunner Runner;
         private readonly string ExecuteFilePath;
         private readonly int ProblemId;
         private readonly int TestId;
 
-        public ValidatorTestJob(IRunner runner, string executeFilePath, int problemId, int testId)
+        public RunMainSolutionOnTestJob(IRunner runner, string executeFilePath, int problemId, int testId)
         {
             Runner = runner;
             ExecuteFilePath = executeFilePath;
@@ -40,6 +39,13 @@ namespace Coticula2.Jobs
             }
             string inputFile = inputFiles[0];
 
+            var outputFiles = Directory.GetFiles(testDirectory, "out.txt");
+            if (outputFiles.Length == 1)
+            {
+                File.Delete(Path.Combine(testDirectory, "out.txt"));
+            }
+            string outputFile = Path.Combine(testDirectory, "out.txt");
+
             var testStartInfo = Creator.CreateRunnerStartInfo();
             testStartInfo.ExecutableFile = ExecuteFilePath;
             testStartInfo.InputString = File.ReadAllText(inputFile);
@@ -58,13 +64,10 @@ namespace Coticula2.Jobs
                     currentVerdict = Verdict.MemoryLimit;
             }
 
-            //compare outputs
+            //save output
             if (currentVerdict == Verdict.Accepted)
             {
-                CompareOkOutputJob job = new CompareOkOutputJob(testExecutedResult.OutputString);
-                job.Execute();
-                if (!job.EqualOutputs)
-                    currentVerdict = Verdict.WrongAnswer;
+                File.WriteAllText(outputFile, testExecutedResult.OutputString);
             }
 
             TestResult = new TestResult() { TestId = TestId, Verdict = currentVerdict, WorkingTime = testExecutedResult.WorkingTime, PeakMemoryUsed = testExecutedResult.PeakMemoryUsed };
