@@ -11,7 +11,25 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.ProgrammingLanguage.Name)
+            @Html.DisplayNameFor(model => model.SubmitID)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SubmitID)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SubmitTime)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SubmitTime)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Problem)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Problem.Title)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ProgrammingLanguage)
         </dt>
         <dd>
             @Html.DisplayFor(model => model.ProgrammingLanguage.Name)
@@ -21,12 +39,6 @@
         </dt>
         <dd>
             <textarea asp-for="Solution" class="form-control" disabled></textarea>
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Verdict)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Verdict.Name)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.WorkingTime)
@@ -41,14 +53,14 @@
             @Html.DisplayFor(model => model.PeakMemoryUsed)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.SubmitTime)
+            @Html.DisplayNameFor(model => model.Verdict)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.SubmitTime)
+            @Html.DisplayFor(model => model.Verdict.Name)
         </dd>
     </dl>
 </div>
-<p>
+<div>
     <a asp-action="Edit" asp-route-id="@Model.SubmitID">Edit</a> |
     <a asp-action="Index">Back to List</a>
-</p>
+</div>

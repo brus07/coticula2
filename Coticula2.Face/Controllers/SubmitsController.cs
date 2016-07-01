@@ -1,15 +1,19 @@
-using System.Linq;
-using Microsoft.AspNet.Mvc;
-using Microsoft.AspNet.Mvc.Rendering;
-using Microsoft.Data.Entity;
-using Coticula2.Face.Models;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using Coticula2.Face.Data;
+using Coticula2.Face.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace Coticula2.Face.Controllers
 {
     public class SubmitsController : Controller
     {
-        private ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
         public SubmitsController(ApplicationDbContext context)
         {
@@ -17,126 +21,257 @@ namespace Coticula2.Face.Controllers
         }
 
         // GET: Submits
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Submits.Include(s => s.Problem).Include(s => s.ProgrammingLanguage).Include(s => s.Verdict).OrderByDescending(s=>s.SubmitID);
-            return View(applicationDbContext.ToList());
+            var applicationDbContext = _context.Submits.Include(s => s.Problem).Include(s => s.ProgrammingLanguage).Include(s => s.Verdict).OrderByDescending(s => s.SubmitID);
+            return View(await applicationDbContext.ToListAsync());
+        }
+
+        // GET: /api/Product/{id}
+        [Route("/api/Submits")]
+        public IEnumerable<int> GetSubmits()
+        {
+            var untestedSubmits = _context.Submits.Where(m => m.VerdictId == 1);
+            List<int> ids = new List<int>();
+            foreach (var item in untestedSubmits)
+            {
+                ids.Add(item.SubmitID);
+            }
+            return ids;
         }
 
         // GET: Submits/Details/5
-        public IActionResult Details(int? id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
 
-            Submit submit = _context.Submits.Include(s => s.ProgrammingLanguage).Include(s => s.Verdict).Single(m => m.SubmitID == id);
+            var submit = await _context.Submits.Include(s => s.Problem).Include(s => s.ProgrammingLanguage).Include(s => s.Verdict).SingleOrDefaultAsync(m => m.SubmitID == id);
             if (submit == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
 
             return View(submit);
         }
 
+        // GET: api/SubmitsApi/5
+        [HttpGet("/api/Submits/{id}")]
+        public async Task<IActionResult> GetSubmit([FromRoute] int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            Submit submit = await _context.Submits.SingleOrDefaultAsync(m => m.SubmitID == id);
+
+            if (submit == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(submit);
+        }
+
         // GET: Submits/Retest/5
-        public IActionResult Retest(int? id)
+        public async Task<IActionResult> Retest(int? id)
         {
             if (id == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
 
-            Submit submit = _context.Submits.Single(m => m.SubmitID == id);
+            var submit = await _context.Submits.SingleOrDefaultAsync(m => m.SubmitID == id);
             if (submit == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
             submit.VerdictId = 1;
             submit.PeakMemoryUsed = 0;
             submit.WorkingTime = 0;
-            _context.SaveChanges();
+            try
+            {
+                _context.Update(submit);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!SubmitExists(submit.SubmitID))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
             return RedirectToAction("Index");
         }
 
         // GET: Submits/Create
         public IActionResult Create()
         {
-            var v = this.Request.Query["problemId"];
-            if (v.Count == 0)
-                v = "0";
-            int problemId = Int32.Parse(v.ToString());
-            //ViewData["ProblemID"] = new SelectList(_context.Problems, "ProblemID", "Problem");
-            ViewData["ProblemID"] = problemId;
-            ViewData["ProgrammingLanguages"] = new SelectList(_context.ProgrammingLanguages, "ProgrammingLanguageID", "Name");
+            ViewData["ProblemID"] = new SelectList(_context.Problems, "ProblemID", "Title");
+            ViewData["ProgrammingLanguageID"] = new SelectList(_context.ProgrammingLanguages, "ProgrammingLanguageID", "Name");
             return View();
         }
 
         // POST: Submits/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Submit submit)
+        public async Task<IActionResult> Create([Bind("SubmitID,ProblemID,ProgrammingLanguageID,Solution")] Submit submit)
         {
             if (ModelState.IsValid)
             {
                 submit.SubmitTime = DateTime.Now;
                 submit.VerdictId = 1;
-                _context.Submits.Add(submit);
-                _context.SaveChanges();
+                _context.Add(submit);
+                await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewData["ProblemID"] = new SelectList(_context.Problems, "ProblemID", "Problem", submit.ProblemID);
+            ViewData["ProblemID"] = new SelectList(_context.Problems, "ProblemID", "Title", submit.ProblemID);
+            ViewData["ProgrammingLanguageID"] = new SelectList(_context.ProgrammingLanguages, "ProgrammingLanguageID", "Name", submit.ProgrammingLanguageID);
             return View(submit);
         }
 
+        // PUT: api/SubmitsApi/5
+        [HttpPut("/api/Submits/{id}")]
+        public async Task<IActionResult> PutSubmit([FromRoute] int id, [FromBody] Submit submit)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (id != submit.SubmitID)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(submit).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!SubmitExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
+
         // GET: Submits/Edit/5
-        public IActionResult Edit(int? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
 
-            Submit submit = _context.Submits.Single(m => m.SubmitID == id);
+            var submit = await _context.Submits.SingleOrDefaultAsync(m => m.SubmitID == id);
             if (submit == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
-            ViewData["ProblemID"] = new SelectList(_context.Problems, "ProblemID", "Problem", submit.ProblemID);
-            ViewData["ProgrammingLanguages"] = new SelectList(_context.ProgrammingLanguages, "ProgrammingLanguageID", "Name", submit.ProgrammingLanguageID);
-            ViewData["Verdicts"] = new SelectList(_context.Verdicts, "VerdictID", "Name", submit.VerdictId);
+            ViewData["ProblemID"] = new SelectList(_context.Problems, "ProblemID", "Title", submit.ProblemID);
+            ViewData["ProgrammingLanguageID"] = new SelectList(_context.ProgrammingLanguages, "ProgrammingLanguageID", "Name", submit.ProgrammingLanguageID);
+            ViewData["VerdictId"] = new SelectList(_context.Verdicts, "VerdictID", "Name", submit.VerdictId);
             return View(submit);
         }
 
         // POST: Submits/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(Submit submit)
+        public async Task<IActionResult> Edit(int id, [Bind("SubmitID,PeakMemoryUsed,ProblemID,ProgrammingLanguageID,Solution,SubmitTime,VerdictId,WorkingTime")] Submit submit)
         {
+            if (id != submit.SubmitID)
+            {
+                return NotFound();
+            }
+
             if (ModelState.IsValid)
             {
-                _context.Update(submit);
-                _context.SaveChanges();
+                try
+                {
+                    _context.Update(submit);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!SubmitExists(submit.SubmitID))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
                 return RedirectToAction("Index");
             }
-            ViewData["ProblemID"] = new SelectList(_context.Problems, "ProblemID", "Problem", submit.ProblemID);
+            ViewData["ProblemID"] = new SelectList(_context.Problems, "ProblemID", "Title", submit.ProblemID);
+            ViewData["ProgrammingLanguageID"] = new SelectList(_context.ProgrammingLanguages, "ProgrammingLanguageID", "Name", submit.ProgrammingLanguageID);
+            ViewData["VerdictId"] = new SelectList(_context.Verdicts, "VerdictID", "Name", submit.VerdictId);
             return View(submit);
         }
 
+        // POST: api/SubmitsApi
+        [HttpPost("/api/Submits")]
+        public async Task<IActionResult> PostSubmit([FromBody] Submit submit)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            _context.Submits.Add(submit);
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException)
+            {
+                if (SubmitExists(submit.SubmitID))
+                {
+                    return new StatusCodeResult(StatusCodes.Status409Conflict);
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return CreatedAtAction("GetSubmit", new { id = submit.SubmitID }, submit);
+        }
+
         // GET: Submits/Delete/5
-        [ActionName("Delete")]
-        public IActionResult Delete(int? id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
 
-            Submit submit = _context.Submits.Single(m => m.SubmitID == id);
+            var submit = await _context.Submits.SingleOrDefaultAsync(m => m.SubmitID == id);
             if (submit == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
 
             return View(submit);
@@ -145,12 +280,17 @@ namespace Coticula2.Face.Controllers
         // POST: Submits/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public IActionResult DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            Submit submit = _context.Submits.Single(m => m.SubmitID == id);
+            var submit = await _context.Submits.SingleOrDefaultAsync(m => m.SubmitID == id);
             _context.Submits.Remove(submit);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return RedirectToAction("Index");
+        }
+
+        private bool SubmitExists(int id)
+        {
+            return _context.Submits.Any(e => e.SubmitID == id);
         }
     }
 }
