@@ -16,6 +16,8 @@ namespace Coticula2.Face.APIClient
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("Using {0}", typeof(Coticula2.Language).Assembly.GetName().FullName);
+
             bool needNextTest = true;
             while (needNextTest)
             {
@@ -23,7 +25,7 @@ namespace Coticula2.Face.APIClient
                 var client = new RestClient(ConfigurationManager.AppSettings["FaceBaseUrl"]);
 
                 var request = new RestRequest();
-                request.Resource = "api/SubmitsApi";
+                request.Resource = "api/Submits";
                 IRestResponse<List<int>> response = client.Execute<List<int>>(request);
                 if (response.ResponseStatus == ResponseStatus.Completed)
                 {
@@ -36,7 +38,7 @@ namespace Coticula2.Face.APIClient
 
                     if (untestedIds.Count > 0)
                     {
-                        request.Resource = "api/SubmitsApi/{id}";
+                        request.Resource = "api/Submits/{id}";
                         request.AddUrlSegment("id", untestedIds[0].ToString());
                         IRestResponse<Submit> submitResponse = client.Execute<Submit>(request);
                         Submit submit = submitResponse.Data;

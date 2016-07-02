@@ -189,3 +189,5 @@ FakesAssemblies/
 GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
+/Coticula2.Face/wwwroot/css/site.min.css
+/Coticula2.Face/wwwroot/js/site.min.js

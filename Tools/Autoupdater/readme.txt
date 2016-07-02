@@ -1,0 +1,1 @@
+Copy these files to root directory and config it.

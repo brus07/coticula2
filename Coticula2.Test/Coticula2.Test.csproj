@@ -50,14 +50,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Jobs\Comparers\CompareOkOutputsJobTest.cs" />
     <Compile Include="Jobs\CompareStringOutputsJobTest.cs" />
     <Compile Include="Jobs\CompileJobTest.cs" />
     <Compile Include="Jobs\ExecuteFileJobTest.cs" />
+    <Compile Include="Jobs\RunMainSolutionOnTestJobTest.cs" />
     <Compile Include="Jobs\TestJobTest.cs" />
     <Compile Include="Jobs\TestSolutionJobTest.cs" />
+    <Compile Include="Jobs\ValidatorProblemJobTest.cs" />
+    <Compile Include="Jobs\ValidatorTestJobTest.cs" />
     <Compile Include="Mocks\RunnerMock.cs" />
     <Compile Include="Mocks\RunnerMockResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Jobs\RunMainSolutionJobTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Coticula2\Coticula2.csproj">
