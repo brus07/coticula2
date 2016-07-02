@@ -10,19 +10,19 @@
     <div class="form-horizontal">
         <h4>Submit</h4>
         <hr />
-        <div asp-validation-summary="ValidationSummary.ModelOnly" class="text-danger"></div>
-        <input type="hidden" asp-for="SubmitID" />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="SubmitID" />
         <div class="form-group">
-            <label asp-for="ProblemID" class="control-label col-md-2">ProblemID</label>
+            <label asp-for="ProblemID" class="control-label col-md-2"></label>
             <div class="col-md-10">
-                <input asp-for="ProblemID" class="form-control" />
+                <select asp-for="ProblemID" class="form-control" asp-items="ViewBag.ProblemID"></select>
                 <span asp-validation-for="ProblemID" class="text-danger" />
             </div>
         </div>
         <div class="form-group">
-            <label asp-for="ProgrammingLanguageID" class="col-md-2 control-label"></label>
+            <label asp-for="ProgrammingLanguageID" class="control-label col-md-2"></label>
             <div class="col-md-10">
-                <select asp-for="ProgrammingLanguageID" asp-items="ViewBag.ProgrammingLanguages"></select>
+                <select asp-for="ProgrammingLanguageID" class="form-control" asp-items="ViewBag.ProgrammingLanguageID"></select>
                 <span asp-validation-for="ProgrammingLanguageID" class="text-danger" />
             </div>
         </div>
@@ -34,9 +34,9 @@
             </div>
         </div>
         <div class="form-group">
-            <label asp-for="Verdict" class="col-md-2 control-label"></label>
+            <label asp-for="VerdictId" class="control-label col-md-2"></label>
             <div class="col-md-10">
-                <select asp-for="VerdictId" asp-items="ViewBag.Verdicts"></select>
+                <select asp-for="VerdictId" class="form-control" asp-items="ViewBag.VerdictId"></select>
                 <span asp-validation-for="VerdictId" class="text-danger" />
             </div>
         </div>
@@ -60,7 +60,5 @@
 </div>
 
 @section Scripts {
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
-    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
