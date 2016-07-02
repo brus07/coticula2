@@ -67,10 +67,21 @@ namespace Coticula2.Face.APIClient
                         TestSolutionJob job = new TestSolutionJob(runner, submit.ProblemID, submit.Solution, language);
                         job.Execute();
                         var testingResult = job.TestingResult;
-                        if (testingResult.CompilationVerdict == Verdict.CopilationError)
+                        if (testingResult.CompilationVerdict != Verdict.Accepted)
                         {
-                            Console.WriteLine("Compilation output:{0}{1}", Environment.NewLine, testingResult.CompilationOutput);
-                            submit.VerdictId = 3;
+                            if (testingResult.CompilationVerdict == Verdict.CopilationError)
+                            {
+                                Console.WriteLine("Compilation output:{0}{1}", Environment.NewLine, testingResult.CompilationOutput);
+                            }
+                            switch(testingResult.CompilationVerdict)
+                            {
+                                case Verdict.CopilationError:
+                                    submit.VerdictId = 3;
+                                    break;
+                                case Verdict.InternalError:
+                                    submit.VerdictId = 8;
+                                    break;
+                            }
                         }
                         else
                         {
@@ -97,6 +108,9 @@ namespace Coticula2.Face.APIClient
                                         break;
                                     case Verdict.RunTimeError:
                                         currentStatus = 7;
+                                        break;
+                                    case Verdict.InternalError:
+                                        currentStatus = 8;
                                         break;
                                     default:
                                         break;

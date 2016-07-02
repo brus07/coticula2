@@ -50,6 +50,17 @@ public class Swap
         }
 
         [Test]
+        public void InternalErrorIncorrectProblemTest()
+        {
+            const string solutions = @"";
+            TestSolutionJob job = new TestSolutionJob(new RunnerMock(), 176763567, solutions, Language.CSharp);
+            job.Execute();
+            var result = job.TestingResult;
+
+            Assert.AreEqual(Verdict.InternalError, result.CompilationVerdict);
+        }
+
+        [Test]
         public void RunTimeTest()
         {
             const string solutions = @"using System;

@@ -1,6 +1,7 @@
 ﻿using Coticula2.Jobs;
 using Coticula2.Test.Mocks;
 using NUnit.Framework;
+using System.IO;
 
 namespace Coticula2.Test.Jobs
 {
@@ -103,6 +104,14 @@ public class ValidatorForSwapProblem
         {
             ValidatorProblemJob job = new ValidatorProblemJob(new RunnerMock(), 8811);
             Assert.IsFalse(job.HasValidator);
+        }
+
+        [Test]
+        [ExpectedException(typeof(FileNotFoundException))]
+        public void TestValidatorWithIncorrectProblem()
+        {
+            ValidatorProblemJob job = new ValidatorProblemJob(new RunnerMock(), 14534534);
+            var hasValidator = job.HasValidator;
         }
 
         [Test]
