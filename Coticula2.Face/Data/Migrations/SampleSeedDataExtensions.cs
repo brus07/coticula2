@@ -43,6 +43,10 @@ namespace Coticula2.Face.Data.Migrations
                     new Verdict()
                     {
                         Name = "Run-time Error"
+                    },
+                    new Verdict()
+                    {
+                        Name = "Internal Error"
                     }
                 );
                 context.SaveChanges();

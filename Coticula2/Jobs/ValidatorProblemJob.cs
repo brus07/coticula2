@@ -40,6 +40,8 @@ namespace Coticula2.Jobs
         {
             get
             {
+                if (!Directory.Exists(fullPathToProblem))
+                    throw new FileNotFoundException("Can't find problem folder.", fullPathToProblem);
                 var validatorFiles = Directory.GetFiles(fullPathToProblem, ValidatorFilePattern);
                 if (validatorFiles.Length == 0)
                     return false;
