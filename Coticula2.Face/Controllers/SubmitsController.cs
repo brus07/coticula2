@@ -130,6 +130,7 @@ namespace Coticula2.Face.Controllers
             {
                 submit.SubmitTime = DateTime.Now;
                 submit.VerdictId = 1;
+                submit.SubmitTypeId = 1;
                 _context.Add(submit);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -153,7 +154,20 @@ namespace Coticula2.Face.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(submit).State = EntityState.Modified;
+            var submitLocal = await _context.Submits.SingleOrDefaultAsync(m => m.SubmitID == id);
+            if (submitLocal == null)
+            {
+                return NotFound();
+            }
+            submitLocal.PeakMemoryUsed = submit.PeakMemoryUsed;
+            submitLocal.ProblemID = submit.ProblemID;
+            submitLocal.ProgrammingLanguageID = submit.ProgrammingLanguageID;
+            submitLocal.Solution = submit.Solution;
+            submitLocal.SubmitTime = submit.SubmitTime;
+            submitLocal.VerdictId = submit.VerdictId;
+            submitLocal.WorkingTime = submit.WorkingTime;
+
+            _context.Entry(submitLocal).State = EntityState.Modified;
 
             try
             {
@@ -207,14 +221,27 @@ namespace Coticula2.Face.Controllers
 
             if (ModelState.IsValid)
             {
+                var submitLocal = await _context.Submits.SingleOrDefaultAsync(m => m.SubmitID == id);
+                if (submitLocal == null)
+                {
+                    return NotFound();
+                }
+                submitLocal.PeakMemoryUsed = submit.PeakMemoryUsed;
+                submitLocal.ProblemID = submit.ProblemID;
+                submitLocal.ProgrammingLanguageID = submit.ProgrammingLanguageID;
+                submitLocal.Solution = submit.Solution;
+                submitLocal.SubmitTime = submit.SubmitTime;
+                submitLocal.VerdictId = submit.VerdictId;
+                submitLocal.WorkingTime = submit.WorkingTime;
+
                 try
                 {
-                    _context.Update(submit);
+                    _context.Update(submitLocal);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!SubmitExists(submit.SubmitID))
+                    if (!SubmitExists(submitLocal.SubmitID))
                     {
                         return NotFound();
                     }

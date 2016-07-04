@@ -51,6 +51,20 @@ namespace Coticula2.Face.Data.Migrations
                 );
                 context.SaveChanges();
             }
+            if (!context.SubmitTypes.Any())
+            {
+                context.SubmitTypes.AddRange(
+                    new SubmitType()
+                    {
+                        Name = "Solution"
+                    },
+                    new SubmitType()
+                    {
+                        Name = "Test"
+                    }
+                );
+                context.SaveChanges();
+            }
             if (!context.Problems.Any())
             {
                 context.Problems.AddRange(

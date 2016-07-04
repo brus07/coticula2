@@ -8,9 +8,10 @@ using Coticula2.Face.Data;
 namespace Coticula2.Face.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20160703203056_AddedSubmitType")]
+    partial class AddedSubmitType
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.0-rtm-21431")
@@ -106,8 +107,6 @@ namespace Coticula2.Face.Data.Migrations
 
                     b.Property<DateTime>("SubmitTime");
 
-                    b.Property<int>("SubmitTypeId");
-
                     b.Property<int>("VerdictId");
 
                     b.Property<int>("WorkingTime");
@@ -117,8 +116,6 @@ namespace Coticula2.Face.Data.Migrations
                     b.HasIndex("ProblemID");
 
                     b.HasIndex("ProgrammingLanguageID");
-
-                    b.HasIndex("SubmitTypeId");
 
                     b.HasIndex("VerdictId");
 
@@ -266,11 +263,6 @@ namespace Coticula2.Face.Data.Migrations
                     b.HasOne("Coticula2.Face.Models.ProgrammingLanguage", "ProgrammingLanguage")
                         .WithMany()
                         .HasForeignKey("ProgrammingLanguageID")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Coticula2.Face.Models.SubmitType", "SubmitType")
-                        .WithMany()
-                        .HasForeignKey("SubmitTypeId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Coticula2.Face.Models.Verdict", "Verdict")

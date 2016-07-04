@@ -14,6 +14,7 @@ namespace Coticula2.Face.Data
         public DbSet<Submit> Submits { get; set; }
         public DbSet<ProgrammingLanguage> ProgrammingLanguages { get; set; }
         public DbSet<Verdict> Verdicts { get; set; }
+        public DbSet<SubmitType> SubmitTypes { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
