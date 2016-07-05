@@ -23,7 +23,7 @@ namespace Coticula2.Face.Controllers
         // GET: Submits
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Submits.Include(s => s.Problem).Include(s => s.ProgrammingLanguage).Include(s => s.Verdict).OrderByDescending(s => s.SubmitID);
+            var applicationDbContext = _context.Submits.Include(s => s.Problem).Include(s => s.ProgrammingLanguage).Include(s => s.Verdict).Include(s => s.SubmitType).OrderByDescending(s => s.SubmitID);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -31,7 +31,7 @@ namespace Coticula2.Face.Controllers
         [Route("/api/Submits")]
         public IEnumerable<int> GetSubmits()
         {
-            var untestedSubmits = _context.Submits.Where(m => m.VerdictId == 1);
+            var untestedSubmits = _context.Submits.Where(m => m.VerdictId == 1).Where(m => m.SubmitTypeId == 1);
             List<int> ids = new List<int>();
             foreach (var item in untestedSubmits)
             {
@@ -112,9 +112,9 @@ namespace Coticula2.Face.Controllers
         }
 
         // GET: Submits/Create
-        public IActionResult Create()
+        public IActionResult Create(int? problemId)
         {
-            ViewData["ProblemID"] = new SelectList(_context.Problems, "ProblemID", "Title");
+            ViewData["Problems"] = new SelectList(_context.Problems, "ProblemID", "Title", problemId);
             ViewData["ProgrammingLanguageID"] = new SelectList(_context.ProgrammingLanguages, "ProgrammingLanguageID", "Name");
             return View();
         }
@@ -129,13 +129,13 @@ namespace Coticula2.Face.Controllers
             if (ModelState.IsValid)
             {
                 submit.SubmitTime = DateTime.Now;
-                submit.VerdictId = 1;
-                submit.SubmitTypeId = 1;
+                submit.VerdictId = Verdict.Waiting;
+                submit.SubmitTypeId = SubmitType.Submit;
                 _context.Add(submit);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewData["ProblemID"] = new SelectList(_context.Problems, "ProblemID", "Title", submit.ProblemID);
+            ViewData["Problems"] = new SelectList(_context.Problems, "ProblemID", "Title", submit.ProblemID);
             ViewData["ProgrammingLanguageID"] = new SelectList(_context.ProgrammingLanguages, "ProgrammingLanguageID", "Name", submit.ProgrammingLanguageID);
             return View(submit);
         }
@@ -313,6 +313,11 @@ namespace Coticula2.Face.Controllers
             _context.Submits.Remove(submit);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
+        }
+
+        private bool ProblemExists(int id)
+        {
+            return _context.Problems.Any(e => e.ProblemID == id);
         }
 
         private bool SubmitExists(int id)

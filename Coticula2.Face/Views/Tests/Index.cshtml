@@ -4,10 +4,10 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
+<h2>Tests for problem @ViewBag.ProblemId</h2>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" asp-route-problemId="@ViewBag.ProblemId">Add test</a>
 </p>
 <table class="table">
     <thead>
@@ -22,19 +22,10 @@
                 @Html.DisplayNameFor(model => model.Problem)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.SubmitType)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProgrammingLanguage)
+                @Html.DisplayNameFor(model => model.Solution)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Verdict)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.WorkingTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PeakMemoryUsed)
             </th>
             <th></th>
         </tr>
@@ -52,23 +43,14 @@
                 <a asp-controller="Problems" asp-action="Details" asp-route-id="@item.ProblemID">@item.Problem.Title</a>
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.SubmitType.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProgrammingLanguage.Name)
+                @Html.DisplayFor(modelItem => item.Solution)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Verdict.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.WorkingTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PeakMemoryUsed)
-            </td>
-            <td>
-                <a asp-action="Retest" asp-route-id="@item.SubmitID">Retest</a> |
                 <a asp-action="Edit" asp-route-id="@item.SubmitID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.SubmitID">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.SubmitID">Delete</a>
             </td>
         </tr>

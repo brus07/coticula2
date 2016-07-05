@@ -92,6 +92,10 @@ namespace Coticula2.Face.Data.Migrations
                     new ProgrammingLanguage()
                     {
                         Name = "G++",
+                    },
+                    new ProgrammingLanguage()
+                    {
+                        Name = "Text",
                     }
                 );
                 context.SaveChanges();
@@ -107,7 +111,8 @@ namespace Coticula2.Face.Data.Migrations
                         SubmitTime = DateTime.Now,
                         ProblemID = 1,
                         ProgrammingLanguageID = 2, //C# 
-                        VerdictId = 1
+                        VerdictId = 1,
+                        SubmitTypeId = 1
                     },
                     new Submit()
                     {
@@ -121,7 +126,8 @@ end.",
                         SubmitTime = DateTime.Now,
                         ProblemID = 1,
                         ProgrammingLanguageID = 2, //FPC
-                        VerdictId = 1
+                        VerdictId = 1,
+                        SubmitTypeId = 1
                     },
                     new Submit()
                     {
@@ -134,7 +140,8 @@ end.",
                         SubmitTime = DateTime.Now,
                         ProblemID = 1,
                         ProgrammingLanguageID = 2, //FPC
-                        VerdictId = 1
+                        VerdictId = 1,
+                        SubmitTypeId = 1
                     },
                     new Submit()
                     {
@@ -152,7 +159,8 @@ public class Swap
                         SubmitTime = DateTime.Now,
                         ProblemID = 1,
                         ProgrammingLanguageID = 1, //C#
-                        VerdictId = 1
+                        VerdictId = 1,
+                        SubmitTypeId = 1
                     },
                     new Submit()
                     {
@@ -169,7 +177,8 @@ int main()
                         SubmitTime = DateTime.Now,
                         ProblemID = 1,
                         ProgrammingLanguageID = 3, //G++
-                        VerdictId = 1
+                        VerdictId = 1,
+                        SubmitTypeId = 1
                     },
                     new Submit()
                     {
@@ -187,7 +196,8 @@ int main()
                         SubmitTime = DateTime.Now,
                         ProblemID = 1,
                         ProgrammingLanguageID = 3, //G++
-                        VerdictId = 1
+                        VerdictId = 1,
+                        SubmitTypeId = 1
                     },
                     new Submit()
                     {
@@ -205,7 +215,8 @@ int main()
                         SubmitTime = DateTime.Now,
                         ProblemID = 1,
                         ProgrammingLanguageID = 3, //G++
-                        VerdictId = 1
+                        VerdictId = 1,
+                        SubmitTypeId = 1
                     },
                     new Submit()
                     {
@@ -220,8 +231,10 @@ int main()
                         SubmitTime = DateTime.Now,
                         ProblemID = 1,
                         ProgrammingLanguageID = 3, //G++
-                        VerdictId = 1
+                        VerdictId = 1,
+                        SubmitTypeId = 1
                     }
+                    //TODO: add Submits for Test type
                 );
                 context.SaveChanges();
             }

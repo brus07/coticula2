@@ -25,6 +25,8 @@
     </dl>
 </div>
 <div>
+    <a asp-controller="Tests" asp-action="Index" asp-route-problemId="@Model.ProblemID">Tests</a> |
+    <a asp-controller="Submits" asp-action="Create" asp-route-problemId="@Model.ProblemID">Submit</a> |
     <a asp-action="Edit" asp-route-id="@Model.ProblemID">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
