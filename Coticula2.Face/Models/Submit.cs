@@ -21,8 +21,11 @@ namespace Coticula2.Face.Models
 
         public int ProgrammingLanguageID { get; set; }
         public ProgrammingLanguage ProgrammingLanguage { get; set; }
-        
+
         public int WorkingTime { get; set; }
         public long PeakMemoryUsed { get; set; }
+
+        public int SubmitTypeId { get; set; }
+        public SubmitType SubmitType { get; set; }
     }
 }

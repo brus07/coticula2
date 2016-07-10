@@ -47,7 +47,6 @@ namespace Coticula2.Jobs
             string outputFile = outputFiles[0];
 
             var testStartInfo = Creator.CreateRunnerStartInfo();
-            //HACK: need make universal command (for different languages)
             testStartInfo.ExecutableFile = ExecuteFilePath;
             testStartInfo.InputString = File.ReadAllText(inputFile);
 

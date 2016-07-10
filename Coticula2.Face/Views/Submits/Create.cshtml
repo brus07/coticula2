@@ -10,20 +10,17 @@
     <div class="form-horizontal">
         <h4>Submit</h4>
         <hr />
-        <div asp-validation-summary="ValidationSummary.ModelOnly" class="text-danger"></div>
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-group">
             <label asp-for="ProblemID" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <input asp-for="ProblemID" class ="form-control" value="@ViewBag.ProblemId" />
+                <select asp-for="ProblemID" class ="form-control" asp-items="ViewBag.Problems"></select>
             </div>
         </div>
         <div class="form-group">
             <label asp-for="ProgrammingLanguageID" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <select asp-for="ProgrammingLanguageID"
-                        asp-items="ViewBag.ProgrammingLanguages">
-                </select>
-                <span asp-validation-for="ProgrammingLanguageID" class="text-danger" />
+                <select asp-for="ProgrammingLanguageID" class ="form-control" asp-items="ViewBag.ProgrammingLanguageID"></select>
             </div>
         </div>
         <div class="form-group">
@@ -46,7 +43,5 @@
 </div>
 
 @section Scripts {
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
-    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

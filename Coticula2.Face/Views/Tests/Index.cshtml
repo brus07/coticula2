@@ -1,0 +1,59 @@
+@model IEnumerable<Coticula2.Face.Models.Submit>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Tests for problem @ViewBag.ProblemId</h2>
+
+<p>
+    <a asp-action="Create" asp-route-problemId="@ViewBag.ProblemId">Add test</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SubmitID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SubmitTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Problem)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Solution)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Verdict)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.SubmitID">@item.SubmitID</a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SubmitTime)
+            </td>
+            <td>
+                <a asp-controller="Problems" asp-action="Details" asp-route-id="@item.ProblemID">@item.Problem.Title</a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Solution)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Verdict.Name)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.SubmitID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.SubmitID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.SubmitID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

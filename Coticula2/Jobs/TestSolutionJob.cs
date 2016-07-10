@@ -27,49 +27,119 @@ namespace Coticula2.Jobs
         public void Execute()
         {
             TestingResult = new TestingResult();
-            WorkingDirectoryPath = CreateTemporaryDirectory();
 
-            #region Compile
-            CompileJob compileJob = new CompileJob(Runner, WorkingDirectoryPath, SourceCode, Language);
-            compileJob.Execute();
-
-            var executedResult = compileJob.TestExecutedResult;
-            TestingResult.CompilationOutput = string.Concat(executedResult.ErrorOutputString, executedResult.OutputString);
-            if (executedResult.ExitCode != 0)
+            try
             {
-                TestingResult.CompilationVerdict = Verdict.CopilationError;
+
+                #region Test validating
+                ValidatorProblemJob testsValidatorJob = new ValidatorProblemJob(Runner, ProblemId);
+                if (testsValidatorJob.HasValidator)
+                {
+                    testsValidatorJob.Execute();
+                    var validatorResult = testsValidatorJob.TestingResult;
+                    if (validatorResult.CompilationVerdict == Verdict.Accepted)
+                    {
+                        bool correctTests = true;
+                        for (int i = 0; i < validatorResult.TestVerdicts.Length; i++)
+                        {
+                            if (validatorResult.TestVerdicts[i].Verdict != Verdict.Accepted)
+                            {
+                                correctTests = false;
+                                break;
+                            }
+                        }
+
+                        if (!correctTests)
+                        {
+                            List<TestResult> testsResults = new List<TestResult>();
+                            testsResults.Add(new TestResult() { TestId = 1, Verdict = Verdict.InternalError });
+                            TestingResult.TestVerdicts = testsResults.ToArray();
+                            return;
+                        }
+                    }
+                }
+                #endregion
+
+                #region Run Main Solution
+                RunMainSolutionJob runMainSolutionJob = new RunMainSolutionJob(Runner, ProblemId);
+                if (runMainSolutionJob.HasMainSolution)
+                {
+                    runMainSolutionJob.Execute();
+                    var runMainSolutionResult = runMainSolutionJob.TestingResult;
+                    if (runMainSolutionResult.CompilationVerdict == Verdict.Accepted)
+                    {
+                        bool correctTests = true;
+                        for (int i = 0; i < runMainSolutionResult.TestVerdicts.Length; i++)
+                        {
+                            if (runMainSolutionResult.TestVerdicts[i].Verdict != Verdict.Accepted)
+                            {
+                                correctTests = false;
+                                break;
+                            }
+                        }
+
+                        if (!correctTests)
+                        {
+                            List<TestResult> testsResults = new List<TestResult>();
+                            testsResults.Add(new TestResult() { TestId = 1, Verdict = Verdict.InternalError });
+                            TestingResult.TestVerdicts = testsResults.ToArray();
+                            return;
+                        }
+                    }
+                }
+                #endregion
+
+                WorkingDirectoryPath = CreateTemporaryDirectory();
+
+                #region Compile
+                CompileJob compileJob = new CompileJob(Runner, WorkingDirectoryPath, SourceCode, Language);
+                compileJob.Execute();
+
+                var executedResult = compileJob.TestExecutedResult;
+                TestingResult.CompilationOutput = string.Concat(executedResult.ErrorOutputString, executedResult.OutputString);
+                if (executedResult.ExitCode != 0)
+                {
+                    TestingResult.CompilationVerdict = Verdict.CopilationError;
+                    Console.WriteLine("Verdict: {0}.", TestingResult.CompilationVerdict);
+                    //TODO: Return compile error result
+                    return;
+                }
+                TestingResult.CompilationVerdict = Verdict.Accepted;
                 Console.WriteLine("Verdict: {0}.", TestingResult.CompilationVerdict);
-                //TODO: Return compile error result
-                return;
-            }
-            TestingResult.CompilationVerdict = Verdict.Accepted;
-            Console.WriteLine("Verdict: {0}.", TestingResult.CompilationVerdict);
-            #endregion
+                #endregion
 
-            #region Test solution
-            TestingResult testingResult = new TestingResult();
-            string executedFile = Path.Combine(WorkingDirectoryPath, "source.exe");
+                #region Test solution
+                TestingResult testingResult = new TestingResult();
+                string executedFile = Path.Combine(WorkingDirectoryPath, "source.exe");
 
-            string fullPathToProblem = TestJob.FullPathToProblem(ProblemId);
-            var testDirectories = Directory.GetDirectories(fullPathToProblem, "test*");
-            List<TestResult> testResults = new List<TestResult>();
-            int testId = 0;
-            foreach (var testDirectory in testDirectories)
-            {
-                testId++;
-                Console.WriteLine("Testing {0}/{1} ...", testId, testDirectories.Length);
+                string fullPathToProblem = TestJob.FullPathToProblem(ProblemId);
+                var testDirectories = Directory.GetDirectories(fullPathToProblem, "test*");
+                List<TestResult> testResults = new List<TestResult>();
+                int testId = 0;
+                foreach (var testDirectory in testDirectories)
+                {
+                    testId++;
+                    Console.WriteLine("Testing {0}/{1} ...", testId, testDirectories.Length);
                 
-                TestJob job = new TestJob(Runner, executedFile, ProblemId, testId);
-                job.Execute();
-                var result = job.TestResult;
+                    TestJob job = new TestJob(Runner, executedFile, ProblemId, testId);
+                    job.Execute();
+                    var result = job.TestResult;
 
-                testResults.Add(result);
+                    testResults.Add(result);
+                }
+                TestingResult.TestVerdicts = testResults.ToArray();
+                #endregion
+
             }
-            TestingResult.TestVerdicts = testResults.ToArray();
-            #endregion
+            catch (FileNotFoundException ex)
+            {
+                TestingResult.CompilationVerdict = Verdict.InternalError;
+                Console.WriteLine("Verdict: {0}.", TestingResult.CompilationVerdict);
+                Console.WriteLine(ex);
+            }
         }
 
-        static string CreateTemporaryDirectory()
+        public static string CreateTemporaryDirectory()
         {
             if (!Directory.Exists("Temp"))
                 Directory.CreateDirectory("Temp");

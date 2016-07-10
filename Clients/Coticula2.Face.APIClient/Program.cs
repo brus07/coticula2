@@ -16,6 +16,8 @@ namespace Coticula2.Face.APIClient
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("Using {0}", typeof(Coticula2.Language).Assembly.GetName().FullName);
+
             bool needNextTest = true;
             while (needNextTest)
             {
@@ -23,7 +25,7 @@ namespace Coticula2.Face.APIClient
                 var client = new RestClient(ConfigurationManager.AppSettings["FaceBaseUrl"]);
 
                 var request = new RestRequest();
-                request.Resource = "api/SubmitsApi";
+                request.Resource = "api/Submits";
                 IRestResponse<List<int>> response = client.Execute<List<int>>(request);
                 if (response.ResponseStatus == ResponseStatus.Completed)
                 {
@@ -36,7 +38,7 @@ namespace Coticula2.Face.APIClient
 
                     if (untestedIds.Count > 0)
                     {
-                        request.Resource = "api/SubmitsApi/{id}";
+                        request.Resource = "api/Submits/{id}";
                         request.AddUrlSegment("id", untestedIds[0].ToString());
                         IRestResponse<Submit> submitResponse = client.Execute<Submit>(request);
                         Submit submit = submitResponse.Data;
@@ -65,10 +67,21 @@ namespace Coticula2.Face.APIClient
                         TestSolutionJob job = new TestSolutionJob(runner, submit.ProblemID, submit.Solution, language);
                         job.Execute();
                         var testingResult = job.TestingResult;
-                        if (testingResult.CompilationVerdict == Verdict.CopilationError)
+                        if (testingResult.CompilationVerdict != Verdict.Accepted)
                         {
-                            Console.WriteLine("Compilation output:{0}{1}", Environment.NewLine, testingResult.CompilationOutput);
-                            submit.VerdictId = 3;
+                            if (testingResult.CompilationVerdict == Verdict.CopilationError)
+                            {
+                                Console.WriteLine("Compilation output:{0}{1}", Environment.NewLine, testingResult.CompilationOutput);
+                            }
+                            switch(testingResult.CompilationVerdict)
+                            {
+                                case Verdict.CopilationError:
+                                    submit.VerdictId = 3;
+                                    break;
+                                case Verdict.InternalError:
+                                    submit.VerdictId = 8;
+                                    break;
+                            }
                         }
                         else
                         {
@@ -95,6 +108,9 @@ namespace Coticula2.Face.APIClient
                                         break;
                                     case Verdict.RunTimeError:
                                         currentStatus = 7;
+                                        break;
+                                    case Verdict.InternalError:
+                                        currentStatus = 8;
                                         break;
                                     default:
                                         break;

@@ -47,11 +47,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CompilerHelper.cs" />
+    <Compile Include="Jobs\Comparers\CompareOkOutputJob.cs" />
     <Compile Include="Jobs\CompareStringOutputsJob.cs" />
     <Compile Include="Jobs\CompileJob.cs" />
     <Compile Include="Jobs\ExecuteFileJob.cs" />
+    <Compile Include="Jobs\RunMainSolutionJob.cs" />
+    <Compile Include="Jobs\RunMainSolutionOnTestJob.cs" />
+    <Compile Include="Jobs\ValidatorProblemJob.cs" />
     <Compile Include="Jobs\TestJob.cs" />
     <Compile Include="Jobs\TestSolutionJob.cs" />
+    <Compile Include="Jobs\ValidatorTestJob.cs" />
     <Compile Include="Job\IJob.cs" />
     <Compile Include="Language.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
