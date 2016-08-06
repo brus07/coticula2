@@ -1,12 +1,9 @@
 ﻿using CommandLine;
 using Coticula2.Jobs;
+using Coticula2.Models;
 using Protex;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Coticula2.Executer
 {
@@ -26,7 +23,7 @@ namespace Coticula2.Executer
 
             if (arguments is Parsed<CommandLineOptions>)
             {
-                Language language = Language.CSharp;
+                ProgrammingLanguage language = ProgrammingLanguage.CSharp;
                 string solution = File.ReadAllText(commandLineOptions.SolutionFile);
                 IRunner runner = Protex.Windows.Creator.CreateRunner();
                 TestSolutionJob job = new TestSolutionJob(runner, commandLineOptions.TaskId, solution, language);

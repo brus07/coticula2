@@ -73,7 +73,18 @@ namespace Coticula2.Face.Controllers
                 return NotFound();
             }
 
-            return Ok(submit);
+            Coticula2.Models.Submit resultSubmit = new Coticula2.Models.Submit();
+            resultSubmit.SubmitID = submit.SubmitID;
+            resultSubmit.Solution = submit.Solution;
+            resultSubmit.SubmitTime = submit.SubmitTime;
+            resultSubmit.Verdict = (Coticula2.Models.Verdict)submit.VerdictId;
+            resultSubmit.ProblemID = submit.ProblemID;
+            resultSubmit.ProgrammingLanguage = (Coticula2.Models.ProgrammingLanguage)submit.ProgrammingLanguageID;
+            resultSubmit.WorkingTime = submit.WorkingTime;
+            resultSubmit.PeakMemoryUsed = submit.PeakMemoryUsed;
+            resultSubmit.SubmitType = (Coticula2.Models.SubmitType)submit.SubmitTypeId;
+
+            return Ok(resultSubmit);
         }
 
         // GET: Submits/Retest/5
@@ -142,7 +153,7 @@ namespace Coticula2.Face.Controllers
 
         // PUT: api/SubmitsApi/5
         [HttpPut("/api/Submits/{id}")]
-        public async Task<IActionResult> PutSubmit([FromRoute] int id, [FromBody] Submit submit)
+        public async Task<IActionResult> PutSubmit([FromRoute] int id, [FromBody] Coticula2.Models.Submit submit)
         {
             if (!ModelState.IsValid)
             {
@@ -161,10 +172,10 @@ namespace Coticula2.Face.Controllers
             }
             submitLocal.PeakMemoryUsed = submit.PeakMemoryUsed;
             submitLocal.ProblemID = submit.ProblemID;
-            submitLocal.ProgrammingLanguageID = submit.ProgrammingLanguageID;
+            submitLocal.ProgrammingLanguageID = (int)submit.ProgrammingLanguage;
             submitLocal.Solution = submit.Solution;
             submitLocal.SubmitTime = submit.SubmitTime;
-            submitLocal.VerdictId = submit.VerdictId;
+            submitLocal.VerdictId = (int)submit.Verdict;
             submitLocal.WorkingTime = submit.WorkingTime;
 
             _context.Entry(submitLocal).State = EntityState.Modified;
@@ -260,14 +271,25 @@ namespace Coticula2.Face.Controllers
 
         // POST: api/SubmitsApi
         [HttpPost("/api/Submits")]
-        public async Task<IActionResult> PostSubmit([FromBody] Submit submit)
+        public async Task<IActionResult> PostSubmit([FromBody] Coticula2.Models.Submit submit)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            _context.Submits.Add(submit);
+            Submit submitLocal = new Submit();
+            submitLocal.SubmitID = submit.SubmitID;
+            submitLocal.Solution = submit.Solution;
+            submitLocal.SubmitTime = submit.SubmitTime;
+            submitLocal.VerdictId = (int)submit.Verdict;
+            submitLocal.ProblemID = submit.ProblemID;
+            submitLocal.ProgrammingLanguageID = (int)submit.ProgrammingLanguage;
+            submitLocal.WorkingTime = submit.WorkingTime;
+            submitLocal.PeakMemoryUsed = submit.PeakMemoryUsed;
+            submitLocal.SubmitTypeId = (int)submit.SubmitType;
+
+            _context.Submits.Add(submitLocal);
             try
             {
                 await _context.SaveChangesAsync();

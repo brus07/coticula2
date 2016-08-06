@@ -1,4 +1,5 @@
 ﻿using Coticula2.Jobs;
+using Coticula2.Models;
 using Coticula2.Test.Mocks;
 using NUnit.Framework;
 using System.IO;
@@ -39,7 +40,7 @@ public class ValidatorForSwapProblem
         [Test]
         public void MainTestValidator()
         {
-            ValidatorProblemJob job = new ValidatorProblemJob(new RunnerMock(), 1, ValidatorForSwapProblem, Language.CSharp);
+            ValidatorProblemJob job = new ValidatorProblemJob(new RunnerMock(), 1, ValidatorForSwapProblem, ProgrammingLanguage.CSharp);
             job.Execute();
             var result = job.TestingResult;
 
@@ -63,7 +64,7 @@ public class ValidatorForSwapProblem
         [Test]
         public void IncorrectTestValidator()
         {
-            ValidatorProblemJob job = new ValidatorProblemJob(new RunnerMock(), 8801, ValidatorForSwapProblem, Language.CSharp);
+            ValidatorProblemJob job = new ValidatorProblemJob(new RunnerMock(), 8801, ValidatorForSwapProblem, ProgrammingLanguage.CSharp);
             job.Execute();
             var result = job.TestingResult;
 
@@ -125,7 +126,7 @@ public class ValidatorForSwapProblem
         [Test]
         public void TestSolutionJobWithIncorrectValidator()
         {
-            TestSolutionJob job = new TestSolutionJob(new RunnerMock(), 8801, "", Language.CSharp);
+            TestSolutionJob job = new TestSolutionJob(new RunnerMock(), 8801, "", ProgrammingLanguage.CSharp);
             job.Execute();
             var result = job.TestingResult;
 
