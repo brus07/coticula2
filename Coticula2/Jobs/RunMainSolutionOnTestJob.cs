@@ -1,4 +1,5 @@
 ﻿using Coticula2.Job;
+using Coticula2.Models;
 using Protex;
 using Protex.Windows;
 using System;

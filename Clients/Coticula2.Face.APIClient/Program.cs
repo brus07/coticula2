@@ -1,14 +1,10 @@
-﻿using Coticula2;
-using Coticula2.Face.Models;
-using Coticula2.Jobs;
+﻿using Coticula2.Jobs;
+using Coticula2.Models;
 using Protex;
 using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Coticula2.Face.APIClient
 {
@@ -16,7 +12,7 @@ namespace Coticula2.Face.APIClient
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Using {0}", typeof(Coticula2.Language).Assembly.GetName().FullName);
+            Console.WriteLine("Using {0}", typeof(TestSolutionJob).Assembly.GetName().FullName);
 
             bool needNextTest = true;
             while (needNextTest)
@@ -46,21 +42,7 @@ namespace Coticula2.Face.APIClient
                         Console.WriteLine("Submit time: {0}", submit.SubmitTime);
                         Console.WriteLine("Problem ID: {0}", submit.ProblemID);
 
-                        Language language = Language.CSharp;
-                        switch (submit.ProgrammingLanguageID)
-                        {
-                            case 1:
-                                language = Language.CSharp;
-                                break;
-                            case 2:
-                                language = Language.Fpc;
-                                break;
-                            case 3:
-                                language = Language.GPlusPlus;
-                                break;
-                            default:
-                                break;
-                        }
+                        var language = submit.ProgrammingLanguage;
 
                         //test
                         IRunner runner = Protex.Windows.Creator.CreateRunner();
@@ -76,46 +58,20 @@ namespace Coticula2.Face.APIClient
                             switch(testingResult.CompilationVerdict)
                             {
                                 case Verdict.CopilationError:
-                                    submit.VerdictId = 3;
+                                    submit.Verdict = Verdict.CopilationError;
                                     break;
                                 case Verdict.InternalError:
-                                    submit.VerdictId = 8;
+                                    submit.Verdict = Verdict.InternalError;
                                     break;
                             }
                         }
                         else
                         {
-                            submit.VerdictId = 2;
+                            submit.Verdict = Verdict.Accepted;
                             for (int i = 0; i < testingResult.TestVerdicts.Length; i++)
                             {
-                                int currentStatus = 1;
-                                switch (testingResult.TestVerdicts[i].Verdict)
-                                {
-                                    case Verdict.Accepted:
-                                        currentStatus = 2;
-                                        break;
-                                    case Verdict.CopilationError:
-                                        currentStatus = 3;
-                                        break;
-                                    case Verdict.WrongAnswer:
-                                        currentStatus = 4;
-                                        break;
-                                    case Verdict.TimeLimit:
-                                        currentStatus = 5;
-                                        break;
-                                    case Verdict.MemoryLimit:
-                                        currentStatus = 6;
-                                        break;
-                                    case Verdict.RunTimeError:
-                                        currentStatus = 7;
-                                        break;
-                                    case Verdict.InternalError:
-                                        currentStatus = 8;
-                                        break;
-                                    default:
-                                        break;
-                                }
-                                submit.VerdictId = Math.Max(submit.VerdictId, currentStatus);
+                                if (submit.Verdict < testingResult.TestVerdicts[i].Verdict)
+                                    submit.Verdict = testingResult.TestVerdicts[i].Verdict;
                                 submit.WorkingTime = Math.Max(submit.WorkingTime, testingResult.TestVerdicts[i].WorkingTime);
                                 submit.PeakMemoryUsed = Math.Max(submit.PeakMemoryUsed, testingResult.TestVerdicts[i].PeakMemoryUsed);
                             }

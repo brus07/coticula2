@@ -1,4 +1,5 @@
 ﻿using Coticula2.Jobs;
+using Coticula2.Models;
 using Coticula2.Test.Mocks;
 using NUnit.Framework;
 
@@ -20,7 +21,7 @@ public class Swap
         Console.WriteLine(""{0} {1}"", int.Parse(tokens[1]), int.Parse(tokens[0]));
     }
 }";
-            TestSolutionJob job = new TestSolutionJob(new RunnerMock(), 1, solutions, Language.CSharp);
+            TestSolutionJob job = new TestSolutionJob(new RunnerMock(), 1, solutions, ProgrammingLanguage.CSharp);
             job.Execute();
             var result = job.TestingResult;
 
@@ -42,7 +43,7 @@ public class Swap
         Console.WriteLine(""{0} {1}"", int.Parse(toke ns[1]), int.Parse(tokens[0]));
     }
 }";
-            TestSolutionJob job = new TestSolutionJob(new RunnerMock(), 1, solutions, Language.CSharp);
+            TestSolutionJob job = new TestSolutionJob(new RunnerMock(), 1, solutions, ProgrammingLanguage.CSharp);
             job.Execute();
             var result = job.TestingResult;
 
@@ -53,7 +54,7 @@ public class Swap
         public void InternalErrorIncorrectProblemTest()
         {
             const string solutions = @"";
-            TestSolutionJob job = new TestSolutionJob(new RunnerMock(), 176763567, solutions, Language.CSharp);
+            TestSolutionJob job = new TestSolutionJob(new RunnerMock(), 176763567, solutions, ProgrammingLanguage.CSharp);
             job.Execute();
             var result = job.TestingResult;
 
@@ -73,7 +74,7 @@ public class Swap
         Console.WriteLine(""{0} {1}"", int.Parse(tokens[1])/int.Parse(tokens[1]), int.Parse(tokens[0]));
     }
 }";
-            TestSolutionJob job = new TestSolutionJob(new RunnerMock(), 1, solutions, Language.CSharp);
+            TestSolutionJob job = new TestSolutionJob(new RunnerMock(), 1, solutions, ProgrammingLanguage.CSharp);
             job.Execute();
             var result = job.TestingResult;
 
@@ -94,7 +95,7 @@ public class Swap
         Console.WriteLine(""bad output"");
     }
 }";
-            TestSolutionJob job = new TestSolutionJob(new RunnerMock(), 1, solutions, Language.CSharp);
+            TestSolutionJob job = new TestSolutionJob(new RunnerMock(), 1, solutions, ProgrammingLanguage.CSharp);
             job.Execute();
             var result = job.TestingResult;
 
@@ -116,7 +117,7 @@ public class Swap
         Console.WriteLine(""{0} {1}"", int.Parse(tokens[0]), int.Parse(tokens[1]));
     }
 }";
-            TestSolutionJob job = new TestSolutionJob(new RunnerMock(), 1, solutions, Language.CSharp);
+            TestSolutionJob job = new TestSolutionJob(new RunnerMock(), 1, solutions, ProgrammingLanguage.CSharp);
             job.Execute();
             var result = job.TestingResult;
 
@@ -139,7 +140,7 @@ public class Swap
         while (true) {}
     }
 }";
-            TestSolutionJob job = new TestSolutionJob(new RunnerMock(), 1, solutions, Language.CSharp);
+            TestSolutionJob job = new TestSolutionJob(new RunnerMock(), 1, solutions, ProgrammingLanguage.CSharp);
             job.Execute();
             var result = job.TestingResult;
 

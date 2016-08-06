@@ -1,4 +1,5 @@
 ﻿using Coticula2.Jobs;
+using Coticula2.Models;
 using Coticula2.Test.Mocks;
 using NUnit.Framework;
 using System;

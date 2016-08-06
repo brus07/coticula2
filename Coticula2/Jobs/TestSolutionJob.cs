@@ -1,4 +1,5 @@
 ﻿using Coticula2.Job;
+using Coticula2.Models;
 using Protex;
 using System;
 using System.Collections.Generic;
@@ -11,10 +12,10 @@ namespace Coticula2.Jobs
         private readonly IRunner Runner;
         private readonly int ProblemId;
         private readonly string SourceCode;
-        private readonly Language Language;
+        private readonly ProgrammingLanguage Language;
         private string WorkingDirectoryPath;
 
-        public TestSolutionJob(IRunner runner, int problemId, string sourceCode, Language language)
+        public TestSolutionJob(IRunner runner, int problemId, string sourceCode, ProgrammingLanguage language)
         {
             Runner = runner;
             ProblemId = problemId;

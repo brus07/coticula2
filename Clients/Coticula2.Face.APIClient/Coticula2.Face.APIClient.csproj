@@ -50,10 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Language.cs" />
     <Compile Include="Models\Problem.cs" />
-    <Compile Include="Models\Submit.cs" />
-    <Compile Include="Models\Verdict.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -62,6 +59,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Coticula2.Models\Coticula2.Models.csproj">
+      <Project>{b0a7f7bb-12db-49a2-94ea-454a53e7785a}</Project>
+      <Name>Coticula2.Models</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Coticula2\Coticula2.csproj">
       <Project>{f206d895-ebd8-4136-b454-5d2e6f142830}</Project>
       <Name>Coticula2</Name>

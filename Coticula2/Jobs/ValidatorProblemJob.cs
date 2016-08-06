@@ -1,4 +1,5 @@
 ﻿using Coticula2.Job;
+using Coticula2.Models;
 using Protex;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ namespace Coticula2.Jobs
         private readonly IRunner Runner;
         private readonly int ProblemId;
         private string ValidatorCode;
-        private Language Language;
+        private ProgrammingLanguage Language;
         private string WorkingDirectoryPath;
 
         private readonly string fullPathToProblem;
@@ -28,7 +29,7 @@ namespace Coticula2.Jobs
             fullPathToProblem = TestJob.FullPathToProblem(ProblemId);
         }
 
-        public ValidatorProblemJob(IRunner runner, int problemId, string validatorCode, Language language) : this(runner, problemId)
+        public ValidatorProblemJob(IRunner runner, int problemId, string validatorCode, ProgrammingLanguage language) : this(runner, problemId)
         {
             ValidatorCode = validatorCode;
             Language = language;
@@ -66,13 +67,13 @@ namespace Coticula2.Jobs
                 switch (Path.GetExtension(validatorFiles[0]))
                 {
                     case ".cs":
-                        Language = Language.CSharp;
+                        Language = ProgrammingLanguage.CSharp;
                         break;
                     case ".cpp":
-                        Language = Language.GPlusPlus;
+                        Language = ProgrammingLanguage.GPlusPlus;
                         break;
                     case ".pas":
-                        Language = Language.Fpc;
+                        Language = ProgrammingLanguage.Fpc;
                         break;
                     default:
                         throw new Exception("Validator can be only C#, C++ or Pascal.");

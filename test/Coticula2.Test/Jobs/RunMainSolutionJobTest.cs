@@ -1,8 +1,8 @@
-﻿using System;
-using Coticula2.Jobs;
+﻿using Coticula2.Jobs;
 using Coticula2.Test.Mocks;
 using NUnit.Framework;
 using System.IO;
+using Coticula2.Models;
 
 namespace Coticula2.Test.Jobs
 {
@@ -42,7 +42,7 @@ public class Swap
 
             RemoveOutputFiles(problemId);
 
-            RunMainSolutionJob job = new RunMainSolutionJob(new RunnerMock(), problemId, SolutionForSwapProblem, Language.CSharp);
+            RunMainSolutionJob job = new RunMainSolutionJob(new RunnerMock(), problemId, SolutionForSwapProblem, ProgrammingLanguage.CSharp);
             job.Execute();
             var result = job.TestingResult;
 
@@ -76,7 +76,7 @@ public class Swap
 
             RemoveOutputFiles(problemId);
 
-            RunMainSolutionJob job = new RunMainSolutionJob(new RunnerMock(), problemId, SolutionForSwapProblem, Language.CSharp);
+            RunMainSolutionJob job = new RunMainSolutionJob(new RunnerMock(), problemId, SolutionForSwapProblem, ProgrammingLanguage.CSharp);
             job.Execute();
             var result = job.TestingResult;
 
@@ -120,7 +120,7 @@ public class Swap
         [Test]
         public void TestSolutionJobWithIncorrectValidator()
         {
-            TestSolutionJob job = new TestSolutionJob(new RunnerMock(), 8903, "", Language.CSharp);
+            TestSolutionJob job = new TestSolutionJob(new RunnerMock(), 8903, "", ProgrammingLanguage.CSharp);
             job.Execute();
             var result = job.TestingResult;
 

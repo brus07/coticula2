@@ -3,6 +3,7 @@ using Coticula2.Job;
 using Protex;
 using Protex.Windows;
 using System.IO;
+using Coticula2.Models;
 
 namespace Coticula2.Jobs
 {
@@ -11,9 +12,9 @@ namespace Coticula2.Jobs
         private readonly IRunner Runner;
         private readonly string WorkingDirectoryPath;
         private readonly string SourceCode;
-        private readonly Language Language;
+        private readonly ProgrammingLanguage Language;
 
-        public CompileJob(IRunner runner, string workingDirectoryPath, string sourceCode, Language language)
+        public CompileJob(IRunner runner, string workingDirectoryPath, string sourceCode, ProgrammingLanguage language)
         {
             Runner = runner;
             WorkingDirectoryPath = workingDirectoryPath;
@@ -38,14 +39,14 @@ namespace Coticula2.Jobs
                 startInfo.Arguments = string.Format(" -o+ -out:{0} {1}", pathToExeFile, pathToSourceCode);
                 switch (Language)
                 {
-                    case Language.CSharp:
+                    case ProgrammingLanguage.CSharp:
                         break;
-                    case Language.Fpc:
+                    case ProgrammingLanguage.Fpc:
                         startInfo.ExecutableFile = "fpc";
                         //fpc -O2 -Xs -Sgic -viwn -Cs67107839 -Mdelphi -XS source.pas -osource.exe
                         startInfo.Arguments = string.Format(" -O2 -Xs -Sgic -viwn -Cs67107839 -Mdelphi -XS {1} -o{0}", pathToExeFile, pathToSourceCode);
                         break;
-                    case Language.GPlusPlus:
+                    case ProgrammingLanguage.GPlusPlus:
                         startInfo.ExecutableFile = "g++";
                         //g++ -static -lm -s -x c++ -O2 -o {filename}.exe {file}
                         startInfo.Arguments = string.Format(" -static -lm -s -x c++ -O2 -o {0} {1}", pathToExeFile, pathToSourceCode);
@@ -58,7 +59,7 @@ namespace Coticula2.Jobs
             {
                 switch(Language)
                 {
-                    case Language.CSharp:
+                    case ProgrammingLanguage.CSharp:
                         startInfo.Arguments = string.Format(" /nologo /out:{0} {1}", pathToExeFile, pathToSourceCode);
                         break;
                     default:

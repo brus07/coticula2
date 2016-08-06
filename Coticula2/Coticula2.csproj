@@ -58,16 +58,20 @@
     <Compile Include="Jobs\TestSolutionJob.cs" />
     <Compile Include="Jobs\ValidatorTestJob.cs" />
     <Compile Include="Job\IJob.cs" />
-    <Compile Include="Language.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestingResult.cs" />
     <Compile Include="TestResult.cs" />
-    <Compile Include="Verdict.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Coticula2.dll.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Coticula2.Models\Coticula2.Models.csproj">
+      <Project>{b0a7f7bb-12db-49a2-94ea-454a53e7785a}</Project>
+      <Name>Coticula2.Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
