@@ -71,7 +71,12 @@
 
   "buildOptions": {
     "emitEntryPoint": true,
-    "preserveCompilationContext": true
+    "preserveCompilationContext": true,
+    "compile": {
+      "include": [
+        "../Coticula2.Models/*.cs"
+      ]
+    }
   },
 
   "runtimeOptions": {
