@@ -31,7 +31,7 @@ namespace Coticula2.Face.Controllers
         [Route("/api/Submits")]
         public IEnumerable<int> GetSubmits()
         {
-            var untestedSubmits = _context.Submits.Where(m => m.VerdictId == 1).Where(m => m.SubmitTypeId == 1);
+            var untestedSubmits = _context.Submits.Where(m => m.VerdictId == 1);
             List<int> ids = new List<int>();
             foreach (var item in untestedSubmits)
             {

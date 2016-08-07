@@ -55,7 +55,7 @@ namespace Coticula2.Jobs
                 }
                 return;
             }
-            throw new NotImplementedException();
+            SubmitResult.Verdict = Verdict.InternalError;
         }
     }
 }

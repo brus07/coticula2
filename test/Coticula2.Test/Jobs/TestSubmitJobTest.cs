@@ -188,15 +188,19 @@ public class Swap
         }
 
         [Test]
-        [ExpectedException(typeof(NotImplementedException))]
-        public void TestException()
+        public void TestSubmitTypeTest()
         {
             Submit submit = new Submit()
             {
+                ProblemID = 1,
                 SubmitType = SubmitType.Test
             };
             TestSubmitJob job = new TestSubmitJob(new RunnerMock(), submit);
             job.Execute();
+            var result = job.SubmitResult;
+
+            Assert.AreEqual(Verdict.InternalError, result.Verdict);
+            AsserSubmitWithoutVerdict(submit, result);
         }
 
         private static void AsserSubmitWithoutVerdict(Submit expected, Submit actual)
