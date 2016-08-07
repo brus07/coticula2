@@ -88,11 +88,28 @@ namespace Coticula2.Face.Controllers
         }
 
         // GET: Submits/Retest/5
+        // GET: Submits/Retest - all submits
         public async Task<IActionResult> Retest(int? id)
         {
             if (id == null)
             {
-                return NotFound();
+                var submits = _context.Submits;
+                try
+                {
+                    foreach (var locSubmit in submits)
+                    {
+                        locSubmit.VerdictId = Verdict.Waiting;
+                        locSubmit.PeakMemoryUsed = 0;
+                        locSubmit.WorkingTime = 0;
+                        _context.Update(locSubmit);
+                    }
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    throw;
+                }
+                return RedirectToAction("Index");
             }
 
             var submit = await _context.Submits.SingleOrDefaultAsync(m => m.SubmitID == id);
