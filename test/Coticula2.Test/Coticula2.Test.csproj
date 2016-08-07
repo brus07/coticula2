@@ -60,6 +60,7 @@
     <Compile Include="Jobs\RunMainSolutionOnTestJobTest.cs" />
     <Compile Include="Jobs\TestJobTest.cs" />
     <Compile Include="Jobs\TestSolutionJobTest.cs" />
+    <Compile Include="Jobs\TestSubmitJobTest.cs" />
     <Compile Include="Jobs\ValidatorProblemJobTest.cs" />
     <Compile Include="Jobs\ValidatorTestJobTest.cs" />
     <Compile Include="Mocks\RunnerMock.cs" />

@@ -31,7 +31,6 @@ namespace Coticula2.Jobs
 
             try
             {
-
                 #region Test validating
                 ValidatorProblemJob testsValidatorJob = new ValidatorProblemJob(Runner, ProblemId);
                 if (testsValidatorJob.HasValidator)

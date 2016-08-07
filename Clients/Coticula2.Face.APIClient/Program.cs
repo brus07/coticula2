@@ -1,4 +1,5 @@
-﻿using Coticula2.Jobs;
+﻿using Coticula2.Job;
+using Coticula2.Jobs;
 using Coticula2.Models;
 using Protex;
 using RestSharp;
@@ -42,40 +43,11 @@ namespace Coticula2.Face.APIClient
                         Console.WriteLine("Submit time: {0}", submit.SubmitTime);
                         Console.WriteLine("Problem ID: {0}", submit.ProblemID);
 
-                        var language = submit.ProgrammingLanguage;
-
-                        //test
                         IRunner runner = Protex.Windows.Creator.CreateRunner();
-                        TestSolutionJob job = new TestSolutionJob(runner, submit.ProblemID, submit.Solution, language);
+                        TestSubmitJob job = new TestSubmitJob(runner, submit);
                         job.Execute();
-                        var testingResult = job.TestingResult;
-                        if (testingResult.CompilationVerdict != Verdict.Accepted)
-                        {
-                            if (testingResult.CompilationVerdict == Verdict.CopilationError)
-                            {
-                                Console.WriteLine("Compilation output:{0}{1}", Environment.NewLine, testingResult.CompilationOutput);
-                            }
-                            switch(testingResult.CompilationVerdict)
-                            {
-                                case Verdict.CopilationError:
-                                    submit.Verdict = Verdict.CopilationError;
-                                    break;
-                                case Verdict.InternalError:
-                                    submit.Verdict = Verdict.InternalError;
-                                    break;
-                            }
-                        }
-                        else
-                        {
-                            submit.Verdict = Verdict.Accepted;
-                            for (int i = 0; i < testingResult.TestVerdicts.Length; i++)
-                            {
-                                if (submit.Verdict < testingResult.TestVerdicts[i].Verdict)
-                                    submit.Verdict = testingResult.TestVerdicts[i].Verdict;
-                                submit.WorkingTime = Math.Max(submit.WorkingTime, testingResult.TestVerdicts[i].WorkingTime);
-                                submit.PeakMemoryUsed = Math.Max(submit.PeakMemoryUsed, testingResult.TestVerdicts[i].PeakMemoryUsed);
-                            }
-                        }
+                        submit = job.SubmitResult;
+
                         //submit.Status = 1;
                         //
                         request.Method = Method.PUT;

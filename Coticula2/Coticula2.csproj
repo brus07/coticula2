@@ -56,6 +56,7 @@
     <Compile Include="Jobs\ExecuteFileJob.cs" />
     <Compile Include="Jobs\RunMainSolutionJob.cs" />
     <Compile Include="Jobs\RunMainSolutionOnTestJob.cs" />
+    <Compile Include="Jobs\TestSubmitJob.cs" />
     <Compile Include="Jobs\ValidatorProblemJob.cs" />
     <Compile Include="Jobs\TestJob.cs" />
     <Compile Include="Jobs\TestSolutionJob.cs" />
