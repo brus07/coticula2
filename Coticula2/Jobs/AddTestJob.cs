@@ -49,7 +49,10 @@ namespace Coticula2.Jobs
             TestingResult = job.TestingResult;
             if (!(TestingResult.CompilationVerdict == Verdict.Accepted && TestingResult.TestVerdicts != null && TestingResult.TestVerdicts.Length == 1 && TestingResult.TestVerdicts[0].Verdict == Verdict.Accepted))
             {
-                File.Delete(testFilePath);
+                foreach (FileInfo file in (new DirectoryInfo(testDirectory)).GetFiles())
+                {
+                    file.Delete();
+                }
                 Directory.Delete(testDirectory);
             }
         }
