@@ -55,6 +55,35 @@ namespace Coticula2.Jobs
                 }
                 return;
             }
+            if (Submit.SubmitType == SubmitType.Test)
+            {
+                AddTestJob job = new AddTestJob(Runner, Submit.ProblemID, Submit.SubmitID, Submit.Solution);
+                job.Execute();
+                var testingResult = job.TestingResult;
+                if (testingResult.CompilationVerdict != Verdict.Accepted)
+                    SubmitResult.Verdict = Verdict.InternalError;
+                else
+                {
+                    if (testingResult.TestVerdicts.Length != 1)
+                        SubmitResult.Verdict = Verdict.InternalError;
+                    else
+                    {
+                        switch (testingResult.TestVerdicts[0].Verdict)
+                        {
+                            case Verdict.Accepted:
+                                SubmitResult.Verdict = Verdict.Accepted;
+                                break;
+                            case Verdict.WrongAnswer:
+                                SubmitResult.Verdict = Verdict.WrongAnswer;
+                                break;
+                            default:
+                                SubmitResult.Verdict = Verdict.InternalError;
+                                break;
+                        }
+                    }
+                }
+                return;
+            }
             SubmitResult.Verdict = Verdict.InternalError;
         }
     }

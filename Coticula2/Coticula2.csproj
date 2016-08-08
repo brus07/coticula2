@@ -50,6 +50,7 @@
       <Link>Properties\AssemblyVersion.cs</Link>
     </Compile>
     <Compile Include="CompilerHelper.cs" />
+    <Compile Include="Jobs\AddTestJob.cs" />
     <Compile Include="Jobs\Comparers\CompareOkOutputJob.cs" />
     <Compile Include="Jobs\CompareStringOutputsJob.cs" />
     <Compile Include="Jobs\CompileJob.cs" />
@@ -57,6 +58,7 @@
     <Compile Include="Jobs\RunMainSolutionJob.cs" />
     <Compile Include="Jobs\RunMainSolutionOnTestJob.cs" />
     <Compile Include="Jobs\TestSubmitJob.cs" />
+    <Compile Include="Jobs\ValidateOneTestJob.cs" />
     <Compile Include="Jobs\ValidatorProblemJob.cs" />
     <Compile Include="Jobs\TestJob.cs" />
     <Compile Include="Jobs\TestSolutionJob.cs" />

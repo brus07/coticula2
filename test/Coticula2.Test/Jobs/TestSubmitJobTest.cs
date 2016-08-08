@@ -188,18 +188,83 @@ public class Swap
         }
 
         [Test]
-        public void TestSubmitTypeTest()
+        public void TestSubmitTypeTestAccepted()
         {
             Submit submit = new Submit()
             {
-                ProblemID = 1,
+                ProblemID = 8831,
+                Solution = "0 0",
                 SubmitType = SubmitType.Test
             };
             TestSubmitJob job = new TestSubmitJob(new RunnerMock(), submit);
             job.Execute();
             var result = job.SubmitResult;
 
-            Assert.AreEqual(Verdict.InternalError, result.Verdict);
+            Assert.AreEqual(Verdict.Accepted, result.Verdict);
+            AsserSubmitWithoutVerdict(submit, result);
+        }
+
+        [Test]
+        public void TestSubmitTypeTestWrongAnswer()
+        {
+            Submit submit = new Submit()
+            {
+                ProblemID = 8831,
+                Solution = "0",
+                SubmitType = SubmitType.Test
+            };
+            TestSubmitJob job = new TestSubmitJob(new RunnerMock(), submit);
+            job.Execute();
+            var result = job.SubmitResult;
+
+            Assert.AreEqual(Verdict.WrongAnswer, result.Verdict);
+            AsserSubmitWithoutVerdict(submit, result);
+        }
+
+        [Test]
+        public void TestSubmitBigLogic()
+        {
+            Submit submitTest = new Submit()
+            {
+                SubmitID = 10,
+                ProblemID = 8841,
+                Solution = "0 0",
+                SubmitType = SubmitType.Test
+            };
+            TestSubmitJob job = new TestSubmitJob(new RunnerMock(), submitTest);
+            job.Execute();
+            var result = job.SubmitResult;
+            Assert.AreEqual(Verdict.Accepted, result.Verdict);
+
+            submitTest.Solution = "4 7";
+            submitTest.SubmitID = 12;
+            job = new TestSubmitJob(new RunnerMock(), submitTest);
+            job.Execute();
+            result = job.SubmitResult;
+            Assert.AreEqual(Verdict.Accepted, result.Verdict);
+
+            Submit submit = new Submit()
+            {
+                SubmitID = 1,
+                ProblemID = 8841,
+                Solution = @"using System;
+
+public class Swap
+{
+    private static void Main()
+    {
+        string[] tokens = Console.ReadLine().Split();
+        Console.WriteLine(""{0} {1}"", int.Parse(tokens[1]), int.Parse(tokens[0]));
+    }
+}",
+                ProgrammingLanguage = ProgrammingLanguage.CSharp,
+                SubmitType = SubmitType.Solution
+            };
+            job = new TestSubmitJob(new RunnerMock(), submit);
+            job.Execute();
+            result = job.SubmitResult;
+
+            Assert.AreEqual(Verdict.Accepted, result.Verdict);
             AsserSubmitWithoutVerdict(submit, result);
         }
 

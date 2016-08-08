@@ -4,6 +4,7 @@ using Protex;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace Coticula2.Jobs
 {
@@ -102,10 +103,11 @@ namespace Coticula2.Jobs
 
             var testDirectories = Directory.GetDirectories(fullPathToProblem, "test*");
             List<TestResult> testResults = new List<TestResult>();
-            int testId = 0;
             foreach (var testDirectory in testDirectories)
             {
-                testId++;
+                Regex regex = new Regex(@"(\d+)(?!.*\d)");
+                Match match = regex.Match(testDirectory);
+                int testId = int.Parse(match.Value);
                 Console.WriteLine("Testing {0}/{1} ...", testId, testDirectories.Length);
 
                 RunMainSolutionOnTestJob job = new RunMainSolutionOnTestJob(Runner, executedFile, ProblemId, testId);

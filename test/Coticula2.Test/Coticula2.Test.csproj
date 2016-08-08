@@ -53,6 +53,7 @@
     <Compile Include="..\..\Coticula2.Models\Properties\AssemblyVersion.cs">
       <Link>Properties\AssemblyVersion.cs</Link>
     </Compile>
+    <Compile Include="Jobs\AddTestJobTest.cs" />
     <Compile Include="Jobs\Comparers\CompareOkOutputsJobTest.cs" />
     <Compile Include="Jobs\CompareStringOutputsJobTest.cs" />
     <Compile Include="Jobs\CompileJobTest.cs" />
@@ -61,6 +62,7 @@
     <Compile Include="Jobs\TestJobTest.cs" />
     <Compile Include="Jobs\TestSolutionJobTest.cs" />
     <Compile Include="Jobs\TestSubmitJobTest.cs" />
+    <Compile Include="Jobs\ValidateOneTestJobTest.cs" />
     <Compile Include="Jobs\ValidatorProblemJobTest.cs" />
     <Compile Include="Jobs\ValidatorTestJobTest.cs" />
     <Compile Include="Mocks\RunnerMock.cs" />
