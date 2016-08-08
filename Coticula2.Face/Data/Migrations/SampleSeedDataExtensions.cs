@@ -34,15 +34,15 @@ namespace Coticula2.Face.Data.Migrations
                     },
                     new Verdict()
                     {
+                        Name = "Run-time Error"
+                    },
+                    new Verdict()
+                    {
                         Name = "Time Limit"
                     },
                     new Verdict()
                     {
                         Name = "Memory Limit"
-                    },
-                    new Verdict()
-                    {
-                        Name = "Run-time Error"
                     },
                     new Verdict()
                     {
