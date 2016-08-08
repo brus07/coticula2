@@ -76,6 +76,9 @@ namespace Coticula2.Jobs
                             case Verdict.WrongAnswer:
                                 SubmitResult.Verdict = Verdict.WrongAnswer;
                                 break;
+                            case Verdict.RunTimeError:
+                                SubmitResult.Verdict = Verdict.RunTimeError;
+                                break;
                             default:
                                 SubmitResult.Verdict = Verdict.InternalError;
                                 break;

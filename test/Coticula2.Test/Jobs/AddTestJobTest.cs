@@ -53,6 +53,21 @@ namespace Coticula2.Test.Jobs
             Assert.That(List.Map(result.TestVerdicts).Property("Verdict"), Is.All.EqualTo(Verdict.WrongAnswer));
         }
 
+        [TestCase(68, "0 0x")]
+        [TestCase(69, "0x 0x")]
+        [TestCase(70, "0x 0")]
+        [TestCase(71, "xx xxx")]
+        public void TestAddTestJobIncorrectSpecialTest(int testId, string testContent)
+        {
+            AddTestJob job = new AddTestJob(new RunnerMock(), 8831, testId, testContent);
+            job.Execute();
+            var result = job.TestingResult;
+
+            Assert.AreEqual(Verdict.Accepted, result.CompilationVerdict);
+            Assert.AreEqual(result.TestVerdicts.Length, 1);
+            Assert.That(List.Map(result.TestVerdicts).Property("Verdict"), Is.All.EqualTo(Verdict.RunTimeError));
+        }
+
         [Test]
         [ExpectedException]
         public void IncorrectAddTestJobrNoValidator()

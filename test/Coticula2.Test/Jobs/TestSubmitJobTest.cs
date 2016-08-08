@@ -222,6 +222,23 @@ public class Swap
         }
 
         [Test]
+        public void TestSubmitTypeTestLikeRunTime()
+        {
+            Submit submit = new Submit()
+            {
+                ProblemID = 8831,
+                Solution = "0 0x",
+                SubmitType = SubmitType.Test
+            };
+            TestSubmitJob job = new TestSubmitJob(new RunnerMock(), submit);
+            job.Execute();
+            var result = job.SubmitResult;
+
+            Assert.AreEqual(Verdict.RunTimeError, result.Verdict);
+            AsserSubmitWithoutVerdict(submit, result);
+        }
+
+        [Test]
         public void TestSubmitBigLogic()
         {
             Submit submitTest = new Submit()
