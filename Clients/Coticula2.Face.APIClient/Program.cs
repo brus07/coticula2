@@ -48,8 +48,6 @@ namespace Coticula2.Face.APIClient
                         job.Execute();
                         submit = job.SubmitResult;
 
-                        //submit.Status = 1;
-                        //
                         request.Method = Method.PUT;
                         request.AddJsonBody(submit);
                         IRestResponse putSubmitResponse = client.Execute(request);

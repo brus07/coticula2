@@ -202,6 +202,14 @@ namespace Coticula2.Face.Controllers
             try
             {
                 await _context.SaveChangesAsync();
+
+                //if new test is correct need retest related problem
+                if (submitLocal.SubmitTypeId == (int)Coticula2.Models.SubmitType.Test &&
+                    submitLocal.VerdictId == (int)Coticula2.Models.Verdict.Accepted)
+                {
+                    var problemsController = new ProblemsController(_context);
+                    await problemsController.Retest(submitLocal.ProblemID);
+                }
             }
             catch (DbUpdateConcurrencyException)
             {
