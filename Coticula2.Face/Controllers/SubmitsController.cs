@@ -208,7 +208,7 @@ namespace Coticula2.Face.Controllers
                     submitLocal.VerdictId == (int)Coticula2.Models.Verdict.Accepted)
                 {
                     var problemsController = new ProblemsController(_context);
-                    await problemsController.Retest(submitLocal.ProblemID);
+                    await problemsController.RetestOnlySulutions(submitLocal.ProblemID);
                 }
             }
             catch (DbUpdateConcurrencyException)

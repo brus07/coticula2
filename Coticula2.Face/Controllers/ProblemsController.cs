@@ -41,6 +41,32 @@ namespace Coticula2.Face.Controllers
 
             return View(problem);
         }
+        
+        internal async Task<bool> RetestOnlySulutions(int id)
+        {
+            var submits = await _context.Submits.Where(m => m.ProblemID == id).Where(m => m.SubmitTypeId == (int)Coticula2.Models.SubmitType.Solution).ToListAsync();
+            if (submits == null)
+            {
+                return false;
+            }
+
+            try
+            {
+                foreach (var submit in submits)
+                {
+                    submit.VerdictId = 1;
+                    submit.WorkingTime = 0;
+                    submit.PeakMemoryUsed = 0;
+                    _context.Update(submit);
+                }
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                throw;
+            }
+            return true;
+        }
 
         // GET: Problems/Retest/5
         public async Task<IActionResult> Retest(int? id)
